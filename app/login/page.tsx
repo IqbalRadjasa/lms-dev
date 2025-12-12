@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import Input from '../components/Input';
+import toast from 'react-hot-toast';
 import { Crimson_Text, Dongle } from 'next/font/google';
+
+import Input from '../components/Input';
 
 const crimson = Crimson_Text({
   subsets: ['latin'],
@@ -18,15 +20,49 @@ export default function LoginPage() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
 
+  const [idError, setIdError] = useState('');
+  const [pwError, setPwError] = useState('');
+
+  const validateIdentifier = (value: string) => {
+    const onlyNumbers = /^[0-9]*$/;
+
+    if (!onlyNumbers.test(value)) {
+      setIdError('NISN / NIP must contain numbers only.');
+    } else {
+      setIdError('');
+    }
+
+    setIdentifier(value);
+  };
+
+  const validatePassword = (value: string) => {
+    if (value.length < 8) {
+      setPwError('Password harus lebih dari 8 karakter');
+    } else {
+      setPwError('');
+    }
+
+    setPassword(value);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!identifier || !password) {
-      alert('Email and password are required!');
+      setIdError('NISN / NIP tidak boleh kosong!');
+      setPwError('Password tidak boleh kosong!');
       return;
     }
 
-    console.log('Login attempt: ', { identifier, password });
+    if (idError == '' && pwError == '') {
+      toast.success('Login berhasil!', {
+        duration: 2000,
+        style: {
+          background: '#113F67',
+          color: '#fff',
+        },
+      });
+    }
   };
 
   return (
@@ -48,9 +84,13 @@ export default function LoginPage() {
 
         {/* Inputs */}
         <div className="space-y-4">
-          <Input label="NISN / NIP" value={identifier} onChange={setIdentifier} placeholder="Masukkan NISN / NIP" />
+          <Input label="NISN / NIP" value={identifier} onChange={validateIdentifier} placeholder="Masukkan NISN / NIP" />
 
-          <Input label="Password" type="password" value={password} onChange={setPassword} placeholder="Masukkan password" />
+          {idError && <span className={`text-red-600 text-2xl block ${dongle.className}`}>{idError}</span>}
+
+          <Input label="Password" type="password" value={password} onChange={validatePassword} placeholder="Masukkan password" />
+
+          {pwError && <span className={`text-red-600 text-2xl block ${dongle.className}`}>{pwError}</span>}
 
           <button
             className={`
@@ -58,6 +98,7 @@ export default function LoginPage() {
                             bg-[#226597] hover:bg-sky-900
                             ${dongle.className}
                         `}
+            onClick={handleSubmit}
           >
             Login
           </button>
