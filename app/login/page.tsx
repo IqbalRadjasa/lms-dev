@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Crimson_Text, Dongle } from 'next/font/google';
 
 import Input from '../components/Input';
+import { useRouter } from 'next/navigation';
 
 const crimson = Crimson_Text({
   subsets: ['latin'],
@@ -22,6 +23,10 @@ export default function LoginPage() {
 
   const [idError, setIdError] = useState('');
   const [pwError, setPwError] = useState('');
+
+  const [loading, setLoading] = useState(false);
+  
+  const router = useRouter();
 
   const validateIdentifier = (value: string) => {
     const onlyNumbers = /^[0-9]*$/;
@@ -45,7 +50,7 @@ export default function LoginPage() {
     setPassword(value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!identifier || !password) {
@@ -54,14 +59,50 @@ export default function LoginPage() {
       return;
     }
 
-    if (idError == '' && pwError == '') {
-      toast.success('Login berhasil!', {
+    if (idError && pwError) {
+      toast.error('Login gagal!', {
         duration: 2000,
         style: {
           background: '#113F67',
           color: '#fff',
         },
       });
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          identifier,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      toast.success('Login berhasil!', {
+        duration: 1500,
+        style: {
+          background: '#113F67',
+          color: '#fff',
+        },
+      });
+
+      router.push('/dashboard');
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
