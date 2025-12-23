@@ -25,14 +25,14 @@ export default function LoginPage() {
   const [pwError, setPwError] = useState('');
 
   const [loading, setLoading] = useState(false);
-  
+
   const router = useRouter();
 
   const validateIdentifier = (value: string) => {
     const onlyNumbers = /^[0-9]*$/;
 
     if (!onlyNumbers.test(value)) {
-      setIdError('NISN / NIP must contain numbers only.');
+      setIdError('NISN / NIP harus berisi angka.');
     } else {
       setIdError('');
     }
