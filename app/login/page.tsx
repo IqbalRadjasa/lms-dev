@@ -59,14 +59,8 @@ export default function LoginPage() {
       return;
     }
 
-    if (idError && pwError) {
-      toast.error('Login gagal!', {
-        duration: 2000,
-        style: {
-          background: '#113F67',
-          color: '#fff',
-        },
-      });
+    if (idError != '' || pwError != '') {
+      return;
     }
 
     setLoading(true);
@@ -86,7 +80,15 @@ export default function LoginPage() {
 
       const data = await res.json();
 
-      if (!res.ok) {
+      if (res.status == 401) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      if (res.status == 400) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      if (res.status == 500) {
         throw new Error(data.message || 'Login failed');
       }
 
