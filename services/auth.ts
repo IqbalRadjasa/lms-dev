@@ -1,4 +1,3 @@
-// services/auth.ts
 import { cookies } from 'next/headers';
 
 export async function getMe() {

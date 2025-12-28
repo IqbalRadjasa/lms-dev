@@ -46,12 +46,5 @@ export default function DashboardPage() {
     });
   };
 
-  return (
-    <div>
-      <h1>SELAMAT DATANG!</h1>
-      <button type="button" onClick={handleLogout}>
-        Logout
-      </button>
-    </div>
-  );
+  return <div></div>;
 }
