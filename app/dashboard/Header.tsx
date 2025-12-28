@@ -73,7 +73,7 @@ export default function Header({ user }: { user?: string }) {
         </div>
 
         {/* Button */}
-        <button onClick={() => setOpen(!open)} className="flex items-center px-3 py-1.5 rounded-full bg-white border-2 border-[#113F67] border hover:bg-[#113F67]/10 ml-16">
+        <button onClick={() => setOpen(!open)} className="flex items-center px-3 py-1.5 rounded-full bg-white border-2 border-[#113F67] border hover:bg-[#113F67]/10 transition ml-16">
           <img src="/icons/person.svg" />
 
           <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
@@ -84,10 +84,10 @@ export default function Header({ user }: { user?: string }) {
         {/* Dropdown */}
         {open && (
           <div className="absolute right-0 mt-2 w-40 bg-white border rounded-xl shadow-lg p-2 animate-in fade-in slide-in-from-top-1">
-            <button className={`w-full px-3 py-2 text-base text-left rounded hover:bg-[#113F67]/10 ${crimson.className} text-[#113F67]`}>Profil Saya</button>
+            <button className={`w-full px-3 py-2 text-base text-left rounded hover:bg-[#113F67]/10 transition ${crimson.className} text-[#113F67]`}>Profil Saya</button>
 
             <hr className="my-1" />
-            <button className={`w-full px-3 py-2 text-base text-left text-red-600 rounded hover:bg-red-50 ${crimson.className}`} onClick={handleLogout}>
+            <button className={`w-full px-3 py-2 text-base text-left text-red-600 rounded hover:bg-red-50 transition ${crimson.className}`} onClick={handleLogout}>
               Logout
             </button>
           </div>
