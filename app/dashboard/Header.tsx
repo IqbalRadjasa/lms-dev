@@ -73,8 +73,8 @@ export default function Header({ user }: { user?: string }) {
         </div>
 
         {/* Button */}
-        <button onClick={() => setOpen(!open)} className="flex items-center px-3 py-1.5 rounded-full bg-white border-3 border-[#113F67] border hover:bg-[#113F67]/10 ml-16">
-          <img src="/icons/person.png" />
+        <button onClick={() => setOpen(!open)} className="flex items-center px-3 py-1.5 rounded-full bg-white border-2 border-[#113F67] border hover:bg-[#113F67]/10 ml-16">
+          <img src="/icons/person.svg" />
 
           <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
             <path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" fill="#113F67" />

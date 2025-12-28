@@ -38,12 +38,12 @@ export default function Sidebar() {
 
       <nav className="flex-1 p-3 space-y-2 text-sm">
         <button onClick={() => setCollapsed((prev) => !prev)} className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 ${crimson.className} text-[#113F67]`}>
-          <img src="icons/Sidebar.png" alt="Logo" className="w-5 h-auto" />
+          <img src="icons/sidebar.svg" alt="Logo" />
           {!collapsed && <span>Sembunyikan</span>}
         </button>
 
         <button className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 ${crimson.className} text-[#113F67]`} onClick={() => router.push('/dashboard')}>
-          <img src="/icons/Home.png" className="w-5 h-auto" />
+          <img src="/icons/pie-chart.svg" />
           {!collapsed && <span>Dashboard</span>}
         </button>
       </nav>
