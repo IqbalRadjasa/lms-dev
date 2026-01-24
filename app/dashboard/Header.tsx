@@ -65,7 +65,7 @@ export default function Header({ user }: { user?: string }) {
   };
 
   return (
-    <header className="h-23 border-b bg-[#F3F9FB] flex items-center justify-between px-4">
+    <header className="h-23 bg-[#FFFFFF] flex items-center justify-between px-4">
       <div className="ml-auto flex relative" ref={dropdownRef}>
         <div className={`text-base ${crimson.className} text-[#113F67] flex items-center gap-1`}>
           <span>Halo,</span>
@@ -83,7 +83,7 @@ export default function Header({ user }: { user?: string }) {
 
         {/* Dropdown */}
         {open && (
-          <div className="absolute right-0 mt-2 w-40 bg-white border rounded-xl shadow-lg p-2 animate-in fade-in slide-in-from-top-1">
+          <div className="absolute right-0 mt-2 w-40 bg-white border rounded-xl shadow-lg p-2 aniamte-in fade-in slide-in-from-top-1">
             <button className={`w-full px-3 py-2 text-base text-left rounded hover:bg-[#113F67]/10 transition ${crimson.className} text-[#113F67]`}>Profil Saya</button>
 
             <hr className="my-1" />

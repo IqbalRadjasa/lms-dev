@@ -1,9 +1,7 @@
-import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
+import './globals.css';
+
 import { Toaster } from 'react-hot-toast';
 import { Geist, Geist_Mono } from 'next/font/google';
-
-import './globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

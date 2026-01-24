@@ -26,12 +26,12 @@ export default function Sidebar() {
     if (collapsed) {
       setCollapsed(false);
     }
-  }
+  };
 
   return (
     <aside
       className={`
-        bg-[#F3F9FB]
+        bg-[#FFFFFF]
         text-white
         transition-all duration-300
         ${collapsed ? 'w-16' : 'w-60'}
@@ -39,17 +39,17 @@ export default function Sidebar() {
       onClick={handleToogleSidebar}
     >
       <div className="flex justify-center items-center p-5" onClick={() => router.push('/dashboard')}>
-        <img src="/logo-onedek.png" alt="Logo" className={`w-13 h-auto  ${!collapsed && 'mr-2'}`} />
-        {!collapsed && <h1 className={`text-xl ${crimson.className} text-[#113F67]`}>One - LMS</h1>}
+        <a href="">
+          <img src="/brand-logo-dev.png" alt="Logo" className={`w-auto h-auto  ${!collapsed && 'mr-2'}`} />
+        </a>
+        {/* <img src="/logo-onedek.png" alt="Logo" className={`w-13 h-auto  ${!collapsed && 'mr-2'}`} /> */}
+        {/* {!collapsed && <h1 className={`text-xl ${crimson.className} text-[#113F67]`}>One - LMS</h1>} */}
       </div>
 
       {/* Toggle Button */}
 
       <nav className="flex-1 p-3 space-y-2 text-sm">
-        <button
-          onClick={() => setCollapsed((prev) => !prev)}
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 ${crimson.className} ${collapsed ? 'bg-[#226597] text-white font-semibold' : 'text-[#113F67] hover:bg-[#113F67]/10 transition'} `}
-        >
+        <button onClick={() => setCollapsed((prev) => !prev)} className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 ${crimson.className} ${collapsed ? 'active font-semibold' : 'not-active'} `}>
           <svg viewBox="0 0 16 16" className="w-5 h-auto">
             <path fill="currentColor" d="M14 2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2z" />
             <path fill="currentColor" d="M3 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
@@ -58,9 +58,7 @@ export default function Sidebar() {
         </button>
 
         <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 ${crimson.className} text-[#113F67] ${
-            isActive('/dashboard') ? 'bg-[#226597] text-white font-semibold' : 'text-[#113F67] hover:bg-[#113F67]/10 transition'
-          }`}
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 ${crimson.className} text-[#113F67] ${isActive('/dashboard') ? 'active font-semibold' : 'not-active'}`}
           onClick={() => router.push('/dashboard')}
         >
           {/* <img src="/icons/pie-chart.svg" /> */}
