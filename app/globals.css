@@ -258,6 +258,10 @@
   background-color: var(--bg-color);
 }
 
+.border {
+  border-radius: 1px solid;
+}
+
 .active {
   background-color: var(--primary-600);
   color: white;
@@ -274,4 +278,14 @@
 
 .secondary-color {
   color: var(--text-secondary-light);
+}
+
+hr {
+  color: var(--neutral-300);
+}
+
+span {
+  font-size: 13px;
+  letter-spacing: 0.025em;
+  font-weight: 600;
 }

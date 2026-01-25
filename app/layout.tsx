@@ -1,16 +1,13 @@
 import './globals.css';
+import 'remixicon/fonts/remixicon.css';
 
 import { Toaster } from 'react-hot-toast';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { IBM_Plex_Sans } from 'next/font/google';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-ibm-plex',
 });
 
 export const metadata = {
@@ -46,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${ibmPlex.variable} antialiased`}>
         <Toaster position="top-center" />
         {children}
       </body>

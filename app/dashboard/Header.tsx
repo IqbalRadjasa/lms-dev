@@ -65,30 +65,36 @@ export default function Header({ user }: { user?: string }) {
   };
 
   return (
-    <header className="h-23 bg-[#FFFFFF] flex items-center justify-between px-4">
-      <div className="ml-auto flex relative" ref={dropdownRef}>
-        <div className={`text-base ${crimson.className} text-[#113F67] flex items-center gap-1`}>
-          <span>Halo,</span>
-          <span className="font-bold">{user ?? 'User'}</span>
+    <header className="h-18 bg-[#FFFFFF] flex items-center justify-between px-4">
+      <div onClick={() => setOpen(!open)} className="ml-auto flex relative h-full cursor-pointer" ref={dropdownRef}>
+        <div className="flex items-center border-l-2 border-[#d1d5db] pl-3">
+          <img src="/profil-dev.jpeg" className="w-8 h-auto rounded-full mr-2" />
+          <span className="uppercase mr-2 text-[#6c757d]">Muhammad Iqbal Radjasa</span>
+          <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
+            <path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" fill="#6c757d" />
+          </svg>
         </div>
 
         {/* Button */}
-        <button onClick={() => setOpen(!open)} className="flex items-center px-3 py-1.5 rounded-full bg-white border-2 border-[#113F67] border hover:bg-[#113F67]/10 transition ml-16">
-          <img src="/icons/person.svg" />
-
+        {/* <button onClick={() => setOpen(!open)} className="flex items-center px-3 py-1.5 rounded-full bg-white border-2 border-[#113F67] border not-active ml-16">
+          <img src="/profil-dev.jpeg" className="w-8 h-auto rounded-full mr-2" />
+          <span className="uppercase">Muhammad Iqbal Radjasa</span>
+          <span>{user ?? 'User'}</span>
           <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
             <path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" fill="#113F67" />
           </svg>
-        </button>
+        </button> */}
 
         {/* Dropdown */}
         {open && (
-          <div className="absolute right-0 mt-2 w-40 bg-white border rounded-xl shadow-lg p-2 aniamte-in fade-in slide-in-from-top-1">
-            <button className={`w-full px-3 py-2 text-base text-left rounded hover:bg-[#113F67]/10 transition ${crimson.className} text-[#113F67]`}>Profil Saya</button>
+          <div className="absolute right-0 mt-18 w-40 bg-white rounded-md shadow-lg p-2 aniamte-in fade-in slide-in-from-top-1">
+            <button className={`w-full px-3 py-2 text-left rounded hover:bg-[#6c757d]/10 transition text-[#113F67]`}>
+              <span className="text-[#6c757d]">Profil Saya</span>
+            </button>
 
             <hr className="my-1" />
-            <button className={`w-full px-3 py-2 text-base text-left text-red-600 rounded hover:bg-red-50 transition ${crimson.className}`} onClick={handleLogout}>
-              Logout
+            <button className={`w-full px-3 py-2 text-base text-left text-red-600 rounded hover:bg-red-50 transition`} onClick={handleLogout}>
+              <span>Logout</span>
             </button>
           </div>
         )}
