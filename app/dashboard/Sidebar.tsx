@@ -19,7 +19,7 @@ export default function Sidebar() {
   return (
     <aside
       className={`
-        bg-[#FFFFFF]
+        sidebar
         text-white
         transition-all duration-300
         ${collapsed ? 'w-17' : 'w-60'}

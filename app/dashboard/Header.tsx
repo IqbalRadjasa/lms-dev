@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Crimson_Text, Dongle } from 'next/font/google';
 
 import { AlertConfirmation } from '../components/AlertConfirmation';
+import ThemeToggle from '../components/ThemeToggle';
 
 const crimson = Crimson_Text({
   subsets: ['latin'],
@@ -65,11 +66,14 @@ export default function Header({ user }: { user?: string }) {
   };
 
   return (
-    <header className="h-18 bg-[#FFFFFF] flex items-center justify-between px-4">
-      <div onClick={() => setOpen(!open)} className="ml-auto flex relative h-full cursor-pointer" ref={dropdownRef}>
-        <div className="flex items-center border-l-2 border-[#d1d5db] pl-3">
+    <header className="header h-18 flex items-center justify-between px-4">
+      <div className="ml-auto flex relative h-full cursor-pointer" ref={dropdownRef}>
+        <div className="flex items-center">
+          <ThemeToggle />
+        </div>
+        <div onClick={() => setOpen(!open)} className="flex items-center border-l-2 border-[#d1d5db] text-[var(--text-secondary-light)] pl-3 ml-4">
           <img src="/profil-dev.jpeg" className="w-8 h-auto rounded-full mr-2" />
-          <span className="uppercase mr-2 text-[#6c757d]">Muhammad Iqbal Radjasa</span>
+          <span className="uppercase mr-2">Muhammad Iqbal Radjasa</span>
           <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
             <path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" fill="#6c757d" />
           </svg>
