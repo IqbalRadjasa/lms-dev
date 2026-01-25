@@ -22,7 +22,7 @@ export default function Sidebar() {
         bg-[#FFFFFF]
         text-white
         transition-all duration-300
-        ${collapsed ? 'w-16' : 'w-60'}
+        ${collapsed ? 'w-17' : 'w-60'}
       `}
       onClick={handleToogleSidebar}
     >
