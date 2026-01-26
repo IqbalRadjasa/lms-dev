@@ -111,57 +111,51 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen">
       {/* LEFT SECTION */}
-      <div className="w-full md:w-1/4 bg-white p-10 flex flex-col justify-center" style={{ backgroundColor: '#F3F9FB' }}>
+      <div className="w-full md:w-1/4 bg-white p-10 flex flex-col justify-center">
         {/* Logo */}
         <div className="flex justify-center mb-6">
-          <img src="/logo-onedek.png" alt="Logo" className="w-32 h-auto" />
+          <div className="circle bg-[#9ca3af] w-30 h-30 rounded-full"></div>
+          {/* <img src="/logo-onedek.png" alt="Logo" className="w-32 h-auto" /> */}
         </div>
 
-        <h1 className={`text-3xl text-center ${crimson.className}`} style={{ color: '#113F67' }}>
+        <h1 className={`text-2xl text-center font-semibold tracking-wide`} style={{ color: '#0d3c36' }}>
           Selamat Datang di <br /> One - LMS
         </h1>
 
         <hr className="my-6" style={{ color: 'black', opacity: '20%' }} />
 
-        <h2 className={`text-2xl mb-4 text-center text-black ${crimson.className}`}>Login</h2>
+        <h2 className={`text-lg mb-4 text-center text-black font-semibold`}>Login</h2>
 
         {/* Inputs */}
         <div className="space-y-4">
           <Input label="NISN / NIP" value={identifier} onChange={validateIdentifier} placeholder="Masukkan NISN / NIP" />
 
-          {idError && <span className={`text-red-600 text-2xl block ${dongle.className}`}>{idError}</span>}
+          {idError && <span className={`text-red-600 text-2xl block`}>{idError}</span>}
 
           <Input label="Password" type="password" value={password} onChange={validatePassword} placeholder="Masukkan password" />
 
-          {pwError && <span className={`text-red-600 text-2xl block ${dongle.className}`}>{pwError}</span>}
+          {pwError && <span className={`text-red-600 text-2xl block`}>{pwError}</span>}
 
-          <button
-            className={`
-                            w-full text-2xl text-white py-2 rounded-lg transition 
-                            bg-[#226597] hover:bg-sky-900
-                            ${dongle.className}
-                        `}
-            onClick={handleSubmit}
-          >
+          <button className={` w-full text-sm font-semibold text-white py-2 rounded-lg transition bg-[#25a194] hover:bg-[#1c7f73]`} onClick={handleSubmit}>
             Login
           </button>
         </div>
 
-        <p className={`text-xl text-black text-center mt-4 ${dongle.className}`}>
+        <p className={`text-xs text-black text-center mt-4`}>
           Kamu lupa password?{' '}
-          <a href="#" className="underline" style={{ color: '#226597' }}>
+          <a href="#" className="underline font-semibold" style={{ color: '#25a194' }}>
             Klik disini
           </a>
         </p>
 
-        <footer className="text-xs text-center text-gray-500 mt-10">© 2025 SMKN 1 Depok. All rights reserved.</footer>
+        <footer className="text-xs text-center text-gray-500 mt-10">© 2025 One - LMS DEV. All rights reserved.</footer>
       </div>
 
       {/* RIGHT SECTION */}
       <div className="hidden md:block w-3/4 relative">
-        <img src="/onedek.jpg" className="absolute inset-0 w-full h-full object-cover" />
+        <img src="/dev-wallpaper.jpg" className="absolute inset-0 w-full h-full object-cover opacity-55" />
 
-        <div className="absolute inset-0 opacity-55 backdrop-blur-sm" style={{ backgroundColor: '#226597' }}></div>
+        {/* <div className="absolute inset-0 opacity-55 backdrop-blur-sm" style={{ backgroundColor: '#226597' }}></div> */}
       </div>
     </div>
   );
