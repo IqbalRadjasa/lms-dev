@@ -43,7 +43,7 @@ export default function Sidebar() {
             <path fill="currentColor" d="M3 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
           </svg> */}
           <i className="ri-layout-left-2-line text-lg"></i>
-          {!collapsed && <span>Sembunyikan</span>}
+          {!collapsed && <span className="regular-text">Sembunyikan</span>}
         </button>
 
         <button className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard') ? 'active font-semibold' : 'not-active'}`} onClick={() => router.push('/dashboard')}>
@@ -51,7 +51,18 @@ export default function Sidebar() {
             <path fill="currentColor" d="M7.5 1.018a7 7 0 0 0-4.79 11.566L7.5 7.793zm1 0V7.5h6.482A7 7 0 0 0 8.5 1.018M14.982 8.5H8.207l-4.79 4.79A7 7 0 0 0 14.982 8.5M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
           </svg> */}
           <i className="ri-home-4-line text-lg"></i>
-          {!collapsed && <span className="">Dashboard</span>}
+          {!collapsed && <span className="regular-text">Dashboard</span>}
+        </button>
+
+        <button
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard/myComponents') ? 'active font-semibold' : 'not-active'}`}
+          onClick={() => router.push('/dashboard/myComponents')}
+        >
+          {/* <svg viewBox="0 0 16 16" className="w-5 h-auto">
+            <path fill="currentColor" d="M7.5 1.018a7 7 0 0 0-4.79 11.566L7.5 7.793zm1 0V7.5h6.482A7 7 0 0 0 8.5 1.018M14.982 8.5H8.207l-4.79 4.79A7 7 0 0 0 14.982 8.5M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
+          </svg> */}
+          <i className="ri-home-4-line text-lg"></i>
+          {!collapsed && <span className="regular-text">Global UI Components</span>}
         </button>
       </nav>
     </aside>

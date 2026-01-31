@@ -313,8 +313,14 @@ hr {
   color: var(--neutral-300);
 }
 
-span {
+.regular-text {
   font-size: 13px;
   letter-spacing: 0.025em;
   font-weight: 600;
+}
+
+.card {
+  background-color: var(--white);
+  padding: 20px 25px;
+  border-radius: 12px;
 }

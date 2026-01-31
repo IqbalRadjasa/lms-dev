@@ -73,7 +73,7 @@ export default function Header({ user }: { user?: string }) {
         </div>
         <div onClick={() => setOpen(!open)} className="flex items-center border-l-2 border-[#d1d5db] text-[var(--text-secondary-light)] pl-3 ml-4">
           <img src="/profil-dev.jpeg" className="w-8 h-auto rounded-full mr-2" />
-          <span className="uppercase mr-2">Muhammad Iqbal Radjasa</span>
+          <span className="regular-text uppercase mr-2">Muhammad Iqbal Radjasa</span>
           <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
             <path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" />
           </svg>
@@ -93,12 +93,12 @@ export default function Header({ user }: { user?: string }) {
         {open && (
           <div className="absolute right-0 mt-18 w-40 bg-[var(--white)] rounded-md shadow-lg p-2 aniamte-in fade-in slide-in-from-top-1">
             <button className={`w-full px-3 py-2 text-left rounded hover:bg-[#6c757d]/10 transition text-[#113F67]`}>
-              <span className="text-[var(--text-secondary-light)]">Profil Saya</span>
+              <span className="regular-text text-[var(--text-secondary-light)]">Profil Saya</span>
             </button>
 
             <hr className="my-1" />
             <button className={`w-full px-3 py-2 text-base text-left text-red-600 rounded hover:bg-red-50 transition`} onClick={handleLogout}>
-              <span>Logout</span>
+              <span className="regular-text">Logout</span>
             </button>
           </div>
         )}

@@ -2,12 +2,12 @@ import './globals.css';
 import 'remixicon/fonts/remixicon.css';
 
 import { Toaster } from 'react-hot-toast';
-import { IBM_Plex_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-const ibmPlex = IBM_Plex_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-ibm-plex',
+  variable: '--font-inter',
+  display: 'swap',
 });
 
 export const metadata = {
@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${ibmPlex.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <Toaster position="top-center" />
         {children}
       </body>
