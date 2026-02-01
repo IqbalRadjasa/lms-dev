@@ -12,13 +12,11 @@ export default function MyComponentsPage() {
   const [val, setValue] = useState('');
 
   const validate = (value: string) => {
-    const onlyNumbers = /^[0-9]*$/;
-
-    if (!onlyNumbers.test(value)) {
+    if (!value) {
       setValue('Validation message.');
-    } else {
-      setValue('');
     }
+
+    setValue(value);
   };
 
   const [option, setOption] = useState('');
@@ -28,12 +26,12 @@ export default function MyComponentsPage() {
 
   return (
     <div>
-      <h1 className="font-semibold text-2xl mb-1">Global UI Components</h1>
-      <span className="text-sm text-gray-500">Dashboard / Global UI Components</span>
+      <h1 className="font-semibold text-2xl mb-1 text-primary-light">Global UI Components</h1>
+      <span className="text-sm text-primary-light">Dashboard / Global UI Components</span>
 
       {/* INPUT FIELDS */}
       <div className="card mt-8">
-        <span className="font-semibold">Inputs</span>
+        <span className="font-semibold text-primary-light">Inputs</span>
         <hr className="my-3" />
 
         <Input label="Label" value={val} onChange={validate} placeholder="Placeholder" />

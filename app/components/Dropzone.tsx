@@ -49,38 +49,42 @@ export default function Dropzone({ label, onChange }: Props) {
 
   return (
     <div className="mb-4">
-      <label className="block mb-1 text-sm text-black font-semibold">{label}</label>
+      <label className="block mb-1 text-sm text-black font-semibold text-primary-light ">{label}</label>
       <div className="space-y-4">
         {/* Drop area */}
         <div
           {...getRootProps()}
           className={`
-          border-2 border-dashed border-[#25a194]
+          border-2 border-dashed border-[var(--input-form-light)]
           p-6 rounded-sm text-center cursor-pointer
           transition
-          ${isDragActive ? 'bg-green-50' : 'bg-white'}
+          bg-[var(--white)]
         `}
         >
           <input {...getInputProps()} />
-          <p className="text-sm text-gray-600">Drag & drop images or documents here, or click to select</p>
+          <p className="text-sm text-[var(--text-secondary-light)]">Drag & drop images or documents here, or click to select</p>
         </div>
 
         {/* Preview list */}
         {files.length > 0 && (
           <ul className="space-y-2">
             {files.map((file, index) => (
-              <li key={index} className="flex items-center gap-3 border p-2 rounded-sm">
+              <li
+                key={index}
+                className="flex items-center gap-3 border p-2 rounded-sm 
+          border-[var(--input-form-light)]"
+              >
                 {/* Image preview */}
-                {file.preview ? <img src={file.preview} alt={file.name} className="h-12 w-12 object-cover rounded" /> : <div className="h-12 w-12 flex items-center justify-center bg-gray-100 rounded text-gray-500 text-xs">DOC</div>}
+                {file.preview ? <img src={file.preview} alt={file.name} className="h-12 w-12 object-cover rounded" /> : <div className="h-12 w-12 flex items-center justify-center bg-gray-100 rounded text-[#6c757d] text-xs">DOC</div>}
 
                 {/* File info */}
                 <div className="flex-1">
-                  <p className="text-sm text-gray-800 truncate">{file.name}</p>
-                  <p className="text-xs text-gray-500">{(file.size / 1024).toFixed(1)} KB</p>
+                  <p className="text-sm text-[var(--text-secondary-light)] truncate">{file.name}</p>
+                  <p className="text-xs text-[var(--text-secondary-light)]">{(file.size / 1024).toFixed(1)} KB</p>
                 </div>
 
                 {/* Remove */}
-                <button onClick={() => setFiles(files.filter((_, i) => i !== index))} className="text-xs text-red-500 hover:underline">
+                <button onClick={() => setFiles(files.filter((_, i) => i !== index))} className="text-xs border border-red-500 rounded px-3 py-2 text-red-500 font-semibold hover:bg-red-500 hover:text-white transition">
                   Remove
                 </button>
               </li>

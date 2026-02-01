@@ -9,7 +9,7 @@ type TextareaProps = {
 export default function Textarea({ label, value, placeholder, rows = 4, onChange }: TextareaProps) {
   return (
     <div className="w-full">
-      <label className="block mb-1 text-sm text-black font-semibold">{label}</label>
+      <label className="block mb-1 text-sm text-black font-semibold text-primary-light">{label}</label>
 
       <textarea
         rows={rows}
@@ -17,13 +17,16 @@ export default function Textarea({ label, value, placeholder, rows = 4, onChange
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         className="
-          text-black text-sm h-auto w-full
+          text-primary-light 
+          text-sm h-auto w-full
           px-4 py-2
           mb-4
-          border border-[#25a194]
+          border 
           rounded-sm
+          border-[var(--input-form-light)]
           focus:outline-none
-          focus:ring-2 focus:ring-green-200
+          focus:ring-0
+          focus:border-[#25a194]
           resize-y
         "
       />
