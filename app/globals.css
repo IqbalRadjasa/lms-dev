@@ -324,3 +324,11 @@ hr {
   padding: 20px 25px;
   border-radius: 12px;
 }
+
+.text-primary-light {
+  color: var(--text-primary-light);
+}
+
+.background-primary {
+  background-color: var(--white);
+}
