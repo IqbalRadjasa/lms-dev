@@ -19,7 +19,7 @@ export default function Input({ label, type = 'text', value, onChange, placehold
 
   return (
     <div className="mb-4">
-      <label className="block mb-1 text-sm font-semibold text-primary-light">{label}</label>
+      <label className="block mb-1 text-xs font-semibold text-primary-light">{label}</label>
 
       <div className="relative">
         <input
@@ -29,8 +29,8 @@ export default function Input({ label, type = 'text', value, onChange, placehold
           placeholder={placeholder}
           className="
         w-full
-        px-4 py-2 pr-10   /* space for eye */
-        text-sm
+        px-4 py-2 pr-10
+        text-xs
         border rounded-sm
         border-[var(--input-form-light)]
         focus:outline-none

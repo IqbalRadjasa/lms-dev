@@ -118,25 +118,25 @@ export default function LoginPage() {
           {/* <img src="/logo-onedek.png" alt="Logo" className="w-32 h-auto" /> */}
         </div>
 
-        <h1 className={`text-2xl text-center font-semibold tracking-wide`} style={{ color: '#0d3c36' }}>
+        <h1 className={`text-xl text-center font-semibold tracking-wide`} style={{ color: '#0d3c36' }}>
           Selamat Datang di <br /> One - LMS
         </h1>
 
         <hr className="my-6" style={{ color: 'black', opacity: '20%' }} />
 
-        <h2 className={`text-lg mb-4 text-center text-black font-semibold`}>Login</h2>
+        <h2 className={`text-md mb-4 text-center text-black font-semibold`}>Login</h2>
 
         {/* Inputs */}
         <div className="space-y-4">
           <Input label="NISN / NIP" value={identifier} onChange={validateIdentifier} placeholder="Masukkan NISN / NIP" />
 
-          {idError && <span className={`regular-text text-red-600 text-sm block`}>{idError}</span>}
+          {idError && <span className={`text-red-600 text-xs font-semibold block`}>{idError}</span>}
 
           <Input label="Password" type="password" value={password} onChange={validatePassword} placeholder="Masukkan password" />
 
-          {pwError && <span className={`regular-text text-red-600 text-sm block`}>{pwError}</span>}
+          {pwError && <span className={`text-red-600 text-xs font-semibold block`}>{pwError}</span>}
 
-          <button className={` w-full text-sm font-semibold text-white py-2 rounded-lg transition bg-[#25a194] hover:bg-[#1c7f73]`} onClick={handleSubmit}>
+          <button className={`w-full text-xs font-semibold text-white py-2 rounded-lg transition bg-[#25a194] hover:bg-[#1c7f73]`} onClick={handleSubmit}>
             Login
           </button>
         </div>
