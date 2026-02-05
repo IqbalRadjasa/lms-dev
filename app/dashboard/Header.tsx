@@ -3,15 +3,9 @@
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { Crimson_Text, Dongle } from 'next/font/google';
 
 import { AlertConfirmation } from '../components/AlertConfirmation';
 import ThemeToggle from '../components/ThemeToggle';
-
-const crimson = Crimson_Text({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-});
 
 export default function Header({ user }: { user?: string }) {
   const router = useRouter();

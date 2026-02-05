@@ -2,20 +2,9 @@
 
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { Crimson_Text, Dongle } from 'next/font/google';
 
 import Input from '../components/Input';
 import { useRouter } from 'next/navigation';
-
-const crimson = Crimson_Text({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-});
-
-const dongle = Dongle({
-  subsets: ['latin'],
-  weight: ['300', '400', '700'],
-});
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState('');
