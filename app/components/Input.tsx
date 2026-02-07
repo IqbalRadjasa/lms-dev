@@ -9,9 +9,10 @@ type InputProps = {
   onChange: (value: string) => void;
   placeholder?: string;
   showToogle?: boolean;
+  required?: boolean;
 };
 
-export default function Input({ label, type = 'text', value, onChange, placeholder, showToogle }: InputProps) {
+export default function Input({ label, type = 'text', value, onChange, placeholder, showToogle, required = false }: InputProps) {
   const [show, setShow] = useState(false);
 
   const isPassword = type === 'password';
@@ -19,7 +20,16 @@ export default function Input({ label, type = 'text', value, onChange, placehold
 
   return (
     <div className="mb-4">
-      <label className="block mb-1 text-xs font-semibold text-primary-light">{label}</label>
+      {required ? (
+        <div className="flex">
+          <label className="block mb-1 text-xs font-semibold text-primary-light">{label}</label>
+          <i className="ri-asterisk text-[var(--danger-600)] text-[7px]"></i>
+        </div>
+      ) : (
+        <>
+          <label className="block mb-1 text-xs font-semibold text-primary-light">{label}</label>
+        </>
+      )}
 
       <div className="relative">
         <input

@@ -117,11 +117,11 @@ export default function LoginPage() {
 
         {/* Inputs */}
         <div className="space-y-4">
-          <Input label="NISN / NIP" value={identifier} onChange={validateIdentifier} placeholder="Masukkan NISN / NIP" />
+          <Input label="NISN / NIP" value={identifier} onChange={validateIdentifier} placeholder="Masukkan NISN / NIP" required={true} />
 
           {idError && <span className={`text-red-600 text-xs font-semibold block`}>{idError}</span>}
 
-          <Input label="Password" type="password" value={password} onChange={validatePassword} placeholder="Masukkan password" />
+          <Input label="Password" type="password" value={password} onChange={validatePassword} placeholder="Masukkan password" required={true} />
 
           {pwError && <span className={`text-red-600 text-xs font-semibold block`}>{pwError}</span>}
 

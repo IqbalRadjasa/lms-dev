@@ -89,7 +89,7 @@ export default function Sidebar() {
         </button>
 
         {!sidebarCollapsed && openMenu === 'system' && (
-          <div className="ml-8 mt-1 space-y-1">
+          <div className="ml-8 mt-1 space-y-1 sidebar-submenu">
             <button
               className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2  ${isActive('/dashboard/systemConfig/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'}`}
               onClick={() => router.push('/dashboard/systemConfig/maintenance')}

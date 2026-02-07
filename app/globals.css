@@ -332,3 +332,15 @@ hr {
 .background-primary {
   background-color: var(--white);
 }
+
+.sidebar-submenu {
+  /* position: absolute; */
+  content: '';
+  width: 0;
+  height: 100%;
+  border: 1px solid rgba(37, 161, 148, 0.2117647059);
+  inset-inline-start: 3px;
+  /* z-index: -1; */
+  top: 6px;
+  height: calc(100% - 34px);
+}
