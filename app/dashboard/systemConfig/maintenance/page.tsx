@@ -81,13 +81,34 @@ export default function MyComponentsPage() {
         <div className="flex items-center">
           <span className="font-base text-primary-light mr-3">Maintenance Mode:</span>
           <Toggle checked={status} onChange={handleMaintenance} />
-          <span className="font-semibold text-primary-light ml-2">{!status ? 'Off' : 'On'}</span>
+          <button
+            className={`
+              ml-2 
+              px-3 py-2
+              rounded-full
+              ${!status ? 'not-active bg-[var(--neutral-200)]' : 'active'}
+              flex items-center
+            `}
+          >
+            {!status ? <i className="ri-lock-unlock-line"></i> : <i className="ri-lock-line"></i>}
+          </button>
+          {/* <button
+            className={`
+              ml-2 
+              font-semibold 
+              px-4 py-1
+              rounded-full
+              ${!status ? 'not-active' : 'active'}
+            `}
+          >
+            {!status ? 'Off' : 'On'}
+          </button> */}
         </div>
       </div>
 
       <Modal open={open} onClose={() => setStatus(false)} title="Maintenance">
         <form onSubmit={handleSubmit}>
-          <img src="/maintenance.jpg" className="w-100 h-auto mx-auto" />
+          <img src="/maintenance.jpg" className="w-100 h-auto mx-auto mb-3" />
 
           <Input label="Masukkan pesan" value={pesan} onChange={validatePesan} placeholder="....." required message={pesanError} />
 
