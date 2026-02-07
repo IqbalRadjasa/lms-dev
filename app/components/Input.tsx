@@ -8,11 +8,11 @@ type InputProps = {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  showToogle?: boolean;
   required?: boolean;
+  message?: string;
 };
 
-export default function Input({ label, type = 'text', value, onChange, placeholder, showToogle, required = false }: InputProps) {
+export default function Input({ label, type = 'text', value, onChange, placeholder, required = false, message = '' }: InputProps) {
   const [show, setShow] = useState(false);
 
   const isPassword = type === 'password';
@@ -31,7 +31,7 @@ export default function Input({ label, type = 'text', value, onChange, placehold
         </>
       )}
 
-      <div className="relative">
+      <div className="relative mb-1">
         <input
           type={inputType}
           value={value}
@@ -63,6 +63,7 @@ export default function Input({ label, type = 'text', value, onChange, placehold
           </button>
         )}
       </div>
+      <span className="text-red-600 text-xs font-semibold block">{message}</span>
     </div>
   );
 }

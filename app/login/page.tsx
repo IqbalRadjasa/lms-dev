@@ -117,13 +117,9 @@ export default function LoginPage() {
 
         {/* Inputs */}
         <div className="space-y-4">
-          <Input label="NISN / NIP" value={identifier} onChange={validateIdentifier} placeholder="Masukkan NISN / NIP" required={true} />
+          <Input label="NISN / NIP" value={identifier} onChange={validateIdentifier} placeholder="Masukkan NISN / NIP" required={true} message={idError} />
 
-          {idError && <span className={`text-red-600 text-xs font-semibold block`}>{idError}</span>}
-
-          <Input label="Password" type="password" value={password} onChange={validatePassword} placeholder="Masukkan password" required={true} />
-
-          {pwError && <span className={`text-red-600 text-xs font-semibold block`}>{pwError}</span>}
+          <Input label="Password" type="password" value={password} onChange={validatePassword} placeholder="Masukkan password" required={true} message={pwError} />
 
           <button className={`w-full text-xs font-semibold text-white py-2 rounded-lg transition bg-[#25a194] hover:bg-[#1c7f73]`} onClick={handleSubmit}>
             Login

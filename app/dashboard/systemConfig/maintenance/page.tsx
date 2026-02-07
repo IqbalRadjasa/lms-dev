@@ -89,11 +89,9 @@ export default function MyComponentsPage() {
         <form onSubmit={handleSubmit}>
           <img src="/maintenance.jpg" className="w-100 h-auto mx-auto" />
 
-          <Input label="Masukkan pesan" value={pesan} onChange={validatePesan} placeholder="....." required />
-          {pesanError && <span className="text-red-600 text-xs font-semibold block">{pesanError}</span>}
+          <Input label="Masukkan pesan" value={pesan} onChange={validatePesan} placeholder="....." required message={pesanError} />
 
-          <Input label="Masukkan kode aktivasi" value={kode} onChange={validateKode} placeholder="....." required />
-          {kodeError && <span className="text-red-600 text-xs font-semibold block">{kodeError}</span>}
+          <Input label="Masukkan kode aktivasi" value={kode} onChange={validateKode} placeholder="....." required message={kodeError} />
 
           <div className="flex justify-end gap-2 mt-4">
             <ButtonPrimary
