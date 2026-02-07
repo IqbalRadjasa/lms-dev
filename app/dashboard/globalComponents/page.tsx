@@ -7,6 +7,9 @@ import Select from '../../components/Select';
 import Textarea from '../../components/TextArea';
 import Dropzone from '../../components/Dropzone';
 import Modal from '@/app/components/Modal';
+import Breadcrumb from '@/app/components/Breadcrumb';
+import Toggle from '@/app/components/Toggle';
+import { AlertConfirmation } from '@/app/components/AlertConfirmation';
 
 export default function MyComponentsPage() {
   const [val, setValue] = useState('');
@@ -23,11 +26,20 @@ export default function MyComponentsPage() {
   const [desc, setDesc] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState(false);
+
+  const handleToggle = () => {
+    if (status) {
+      setStatus(false);
+    } else {
+      setStatus(true);
+    }
+  };
 
   return (
     <div>
       <h1 className="font-semibold text-2xl mb-1 text-primary-light">Global UI Components</h1>
-      <span className="text-sm text-primary-light">Dashboard / Global UI Components</span>
+      <Breadcrumb />
 
       {/* INPUT FIELDS */}
       <div className="card mt-8">
@@ -94,6 +106,22 @@ export default function MyComponentsPage() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* BREADCRUMB */}
+      <div className="card mt-8">
+        <span className="font-semibold text-primary-light">Breadcrumb</span>
+        <hr className="my-3" />
+
+        <Breadcrumb />
+      </div>
+
+      {/* TOGGLE */}
+      <div className="card mt-8">
+        <span className="font-semibold text-primary-light">Toggle Button</span>
+        <hr className="my-3" />
+
+        <Toggle checked={status} onChange={handleToggle} />
       </div>
     </div>
   );

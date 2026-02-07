@@ -7,6 +7,7 @@ import Toggle from '../../../components/Toggle';
 import Input from '@/app/components/Input';
 import ButtonPrimary from '@/app/components/ButtonPrimary';
 import { AlertConfirmation } from '@/app/components/AlertConfirmation';
+import Breadcrumb from '@/app/components/Breadcrumb';
 
 export default function MyComponentsPage() {
   const [status, setStatus] = useState(false);
@@ -75,7 +76,7 @@ export default function MyComponentsPage() {
   return (
     <div>
       <h1 className="font-semibold text-2xl mb-1 text-primary-light">Maintenance</h1>
-      <span className="text-sm text-primary-light">Dashboard / System Configuration / Maintenance</span>
+      <Breadcrumb/>
 
       <div className="card mt-8">
         <div className="flex items-center">

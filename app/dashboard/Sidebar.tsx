@@ -49,7 +49,7 @@ export default function Sidebar() {
         </button>
 
         <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard') ? 'active font-semibold' : 'not-active'}`}
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard') ? 'active' : 'not-active'}`}
           onClick={() => {
             setOpenMenu(null);
             router.push('/dashboard');
@@ -60,20 +60,20 @@ export default function Sidebar() {
         </button>
 
         <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard/myComponents') ? 'active font-semibold' : 'not-active'}`}
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard/globalComponents') ? 'active' : 'not-active'}`}
           onClick={() => {
             setOpenMenu(null);
-            router.push('/dashboard/myComponents');
+            router.push('/dashboard/globalComponents');
           }}
         >
           <i className="ri-shapes-line text-lg"></i>
-          {!sidebarCollapsed && <span className="regular-text">Global UI Components</span>}
+          {!sidebarCollapsed && <span className="regular-text">Global Components</span>}
         </button>
 
         <button
           onClick={() => setOpenMenu(openMenu === 'system' ? null : 'system')}
           className={`
-            w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${openMenu === 'system' || pathname.startsWith('/dashboard/system') ? 'active font-semibold' : 'not-active'}
+            w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${openMenu === 'system' || pathname.startsWith('/dashboard/system') ? 'active' : 'not-active'}
           `}
         >
           <i className="ri-tools-line text-lg"></i>
@@ -92,7 +92,7 @@ export default function Sidebar() {
           <div className="ml-8 mt-1 space-y-1 sidebar-submenu">
             <button
               className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2  ${isActive('/dashboard/systemConfig/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'}`}
-              onClick={() => router.push('/dashboard/systemConfig/maintenance')}
+              onClick={() => router.push('/dashboard/systemConfiguration/maintenance')}
             >
               <i className="ri-circle-fill text-[0.4rem]"></i>
               {!sidebarCollapsed && <span className="regular-text">Maintenance</span>}
