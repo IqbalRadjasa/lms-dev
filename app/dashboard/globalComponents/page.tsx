@@ -38,7 +38,7 @@ export default function MyComponentsPage() {
 
   return (
     <div>
-      <h1 className="font-semibold text-2xl mb-1 text-primary-light">Global UI Components</h1>
+      <h1 className="font-semibold text-2xl mb-1 text-primary-light">Global Components</h1>
       <Breadcrumb />
 
       {/* INPUT FIELDS */}
