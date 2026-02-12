@@ -58,10 +58,8 @@ export default function MyComponentsPage() {
             { label: 'Editor', value: 'editor' },
             { label: 'Viewer', value: 'viewer' },
           ]}
-          className="
-          h-auto w-full"
+          className="h-auto w-full"
         />
-        <div className="mb-4"></div>
         <Textarea label="Description" placeholder="Write something..." value={desc} onChange={setDesc} rows={5} />
 
         <Dropzone label="Label" onChange={setFiles} />

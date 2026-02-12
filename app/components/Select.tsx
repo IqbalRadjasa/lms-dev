@@ -10,11 +10,12 @@ type SelectProps<T> = {
   placeholder?: string;
   onChange: (value: T) => void;
   className?: string;
+  forDatatable?: boolean;
 };
 
-export default function Select<T extends string | number>({ label, value, options, placeholder = 'Select option', onChange, className }: SelectProps<T>) {
+export default function Select<T extends string | number>({ label, value, options, placeholder = 'Select option', onChange, className, forDatatable = false }: SelectProps<T>) {
   return (
-    <div className="flex flex-col gap-1">
+    <div className={`flex flex-col gap-1 ${!forDatatable && 'mb-4'}`}>
       {label && <label className="block mb-1 text-sm font-semibold text-primary-light">{label}</label>}
 
       <select

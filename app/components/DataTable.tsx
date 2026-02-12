@@ -31,7 +31,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
   return (
     <div className="w-full overflow-y-auto">
-      {/* 🔍 Search */}
       <div className="flex items-center justify-between py-3">
         <div className="flex items-center">
           <div className="relative w-full max-w-sm">
@@ -61,6 +60,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               { label: '50', value: 50 },
             ]}
             className="h-auto w-16"
+            forDatatable={true}
           />
         </div>
       </div>
