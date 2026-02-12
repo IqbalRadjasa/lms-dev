@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import { AlertConfirmation } from '../components/AlertConfirmation';
 import ThemeToggle from '../components/ThemeToggle';
 
-export default function Header({ user }: { user?: string }) {
+export default function Header({ user, role }: { user?: string, role?: string }) {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -78,7 +78,7 @@ export default function Header({ user }: { user?: string }) {
           <img src="/profil-dev.jpeg" className="w-8 h-auto rounded-full" />
           <div className="flex flex-col items-start mx-3">
             <span className="text-sm font-semibold text-primary-light">{user ?? 'User'}</span>
-            <span className="text-xs font-base">Admin</span>
+            <span className="text-xs font-base">{role ?? ''}</span>
           </div>
           <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
             <path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" fill="#113F67" />

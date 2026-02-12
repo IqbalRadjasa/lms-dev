@@ -20,7 +20,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 className="font-semibold text-2xl mb-1 text-primary-light">Maintenance</h1>
+      <h1 className="font-semibold text-2xl mb-1 text-primary-light">Dashboard</h1>
       <Breadcrumb />
     </div>
   );

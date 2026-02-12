@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { ColumnDef } from '@tanstack/react-table';
 
 import Modal from '../../../components/Modal';
 import Toggle from '../../../components/Toggle';
@@ -8,8 +9,41 @@ import Input from '@/app/components/Input';
 import ButtonPrimary from '@/app/components/ButtonPrimary';
 import { AlertConfirmation } from '@/app/components/AlertConfirmation';
 import Breadcrumb from '@/app/components/Breadcrumb';
+import { DataTable } from '@/app/components/DataTable';
 
-export default function MyComponentsPage() {
+type Log = {
+  id: number;
+  user: string;
+  role: string;
+};
+
+const columns: ColumnDef<Log>[] = [
+  {
+    accessorKey: 'id',
+    header: 'ID',
+  },
+  {
+    accessorKey: 'user',
+    header: 'User',
+  },
+  {
+    accessorKey: 'role',
+    header: 'Role',
+  },
+  {
+    header: "Action",
+    cell: ({ row }) => (
+      <button
+        className="text-blue-600 hover:underline"
+        onClick={() => alert(row.original.user)}
+      >
+        View
+      </button>
+    ),
+  },
+];
+
+export default function Maintenance() {
   const [status, setStatus] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -73,13 +107,19 @@ export default function MyComponentsPage() {
     }
   };
 
+  const data: Log[] = [
+    {id: 1, user: 'Eman', role: 'Super Admin'},
+    {id: 2, user: 'Umar', role: 'Super Admin'},
+    {id: 3, user: 'Esty', role: 'Super Admin'}
+  ]
+
   return (
     <div>
       <h1 className="font-semibold text-2xl mb-1 text-primary-light">Maintenance</h1>
-      <Breadcrumb/>
+      <Breadcrumb />
 
       <div className="card mt-8">
-        <div className="flex items-center">
+        <div className="flex items-center mb-5">
           <span className="font-base text-primary-light mr-3">Maintenance Mode:</span>
           <Toggle checked={status} onChange={handleMaintenance} />
           <button
@@ -105,6 +145,7 @@ export default function MyComponentsPage() {
             {!status ? 'Off' : 'On'}
           </button> */}
         </div>
+        <DataTable columns={columns} data={data}/>
       </div>
 
       <Modal open={open} onClose={() => setStatus(false)} title="Maintenance">
