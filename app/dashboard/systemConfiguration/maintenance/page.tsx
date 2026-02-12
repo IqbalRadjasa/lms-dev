@@ -10,11 +10,14 @@ import ButtonPrimary from '@/app/components/ButtonPrimary';
 import { AlertConfirmation } from '@/app/components/AlertConfirmation';
 import Breadcrumb from '@/app/components/Breadcrumb';
 import { DataTable } from '@/app/components/DataTable';
+import Dropdown from '@/app/components/Dropdown';
 
 type Log = {
   id: number;
   user: string;
   role: string;
+  created_at: string;
+  status: string;
 };
 
 const columns: ColumnDef<Log>[] = [
@@ -31,14 +34,54 @@ const columns: ColumnDef<Log>[] = [
     header: 'Role',
   },
   {
-    header: "Action",
+    accessorKey: 'created_at',
+    header: 'Tanggal Ubah',
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.original.status;
+
+      return (
+        <span
+          className={`
+          px-2.5 py-1 rounded-sm text-xs font-semibold
+          ${status == 'ON' ? 'bg-success-100 text-success-600' : 'bg-red-100 text-red-600'}
+        `}
+        >
+          {status == 'ON' ? <i className="ri-lock-unlock-line mr-1"></i> : <i className="ri-lock-line mr-1"></i>}
+          {status}
+        </span>
+      );
+    },
+  },
+  {
+    header: 'Aksi',
     cell: ({ row }) => (
-      <button
-        className="text-blue-600 hover:underline"
-        onClick={() => alert(row.original.user)}
+      <Dropdown
+        items={[
+          {
+            icon: <i className="ri-user-3-line mr-1"></i>,
+            label: 'View',
+            onClick: () => alert(`View ${row.original.user}`),
+          },
+          {
+            icon: <i className="ri-edit-2-line mr-1"></i>,
+            label: 'Edit',
+            onClick: () => alert(`Edit ${row.original.user}`),
+          },
+          {
+            icon: <i className="ri-delete-bin-6-line mr-1"></i>,
+            label: 'Delete',
+            onClick: () => alert(`Delete ${row.original.user}`),
+          },
+        ]}
       >
-        View
-      </button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" className="text-primary-light cursor-pointer">
+          <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0-2 0m0 7a1 1 0 1 0 2 0a1 1 0 1 0-2 0m0-14a1 1 0 1 0 2 0a1 1 0 1 0-2 0" />
+        </svg>
+      </Dropdown>
     ),
   },
 ];
@@ -108,10 +151,13 @@ export default function Maintenance() {
   };
 
   const data: Log[] = [
-    {id: 1, user: 'Eman', role: 'Super Admin'},
-    {id: 2, user: 'Umar', role: 'Super Admin'},
-    {id: 3, user: 'Esty', role: 'Super Admin'}
-  ]
+    { id: 1, user: 'Eman', role: 'Super Admin', created_at: '12-02-2026', status: 'ON' },
+    { id: 2, user: 'Umar', role: 'Super Admin', created_at: '12-02-2026', status: 'OFF' },
+    { id: 3, user: 'Esty', role: 'Super Admin', created_at: '12-02-2026', status: 'ON' },
+    { id: 4, user: 'Sintya', role: 'Super Admin', created_at: '12-02-2026', status: 'ON' },
+    { id: 5, user: 'Usman', role: 'Super Admin', created_at: '12-02-2026', status: 'OFF' },
+    { id: 6, user: 'Rela  ', role: 'Super Admin', created_at: '12-02-2026', status: 'OFF' },
+  ];
 
   return (
     <div>
@@ -145,7 +191,7 @@ export default function Maintenance() {
             {!status ? 'Off' : 'On'}
           </button> */}
         </div>
-        <DataTable columns={columns} data={data}/>
+        <DataTable columns={columns} data={data} />
       </div>
 
       <Modal open={open} onClose={() => setStatus(false)} title="Maintenance">

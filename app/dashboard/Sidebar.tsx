@@ -39,7 +39,7 @@ export default function Sidebar() {
 
       <nav className="flex-1 p-3 space-y-2 text-sm">
         <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 ${sidebarCollapsed ? 'active font-semibold' : 'not-active'} `}
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${sidebarCollapsed ? 'active font-semibold' : 'not-active'} `}
           onClick={() => {
             setSidebarCollapsed((prev) => !prev);
           }}
@@ -49,7 +49,7 @@ export default function Sidebar() {
         </button>
 
         <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard') ? 'active' : 'not-active'}`}
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard') ? 'active' : 'not-active'}`}
           onClick={() => {
             setOpenMenu(null);
             router.push('/dashboard');
@@ -60,7 +60,7 @@ export default function Sidebar() {
         </button>
 
         <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${isActive('/dashboard/globalComponents') ? 'active' : 'not-active'}`}
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard/globalComponents') ? 'active' : 'not-active'}`}
           onClick={() => {
             setOpenMenu(null);
             router.push('/dashboard/globalComponents');
@@ -73,7 +73,7 @@ export default function Sidebar() {
         <button
           onClick={() => setOpenMenu(openMenu === 'system' ? null : 'system')}
           className={`
-            w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] ${openMenu === 'system' || pathname.startsWith('/dashboard/system') ? 'active' : 'not-active'}
+            w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${openMenu === 'system' || pathname.startsWith('/dashboard/system') ? 'active' : 'not-active'}
           `}
         >
           <i className="ri-tools-line text-lg"></i>
@@ -91,7 +91,9 @@ export default function Sidebar() {
         {!sidebarCollapsed && openMenu === 'system' && (
           <div className="ml-8 mt-1 space-y-1 sidebar-submenu">
             <button
-              className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2  ${isActive('/dashboard/systemConfiguration/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'}`}
+              className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
+                isActive('/dashboard/systemConfiguration/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'
+              }`}
               onClick={() => router.push('/dashboard/systemConfiguration/maintenance')}
             >
               <i className="ri-circle-fill text-[0.4rem]"></i>

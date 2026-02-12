@@ -1,26 +1,30 @@
-type Option = {
+type Option<T> = {
   label: string;
-  value: string | number;
+  value: T;
 };
 
-type SelectProps = {
+type SelectProps<T> = {
   label?: string;
-  value?: string | number;
-  options: Option[];
+  value?: T;
+  options: Option<T>[];
   placeholder?: string;
-  onChange: (value: string) => void;
+  onChange: (value: T) => void;
+  className?: string;
 };
 
-export default function Select({ label, value, options, placeholder = 'Select option', onChange }: SelectProps) {
+export default function Select<T extends string | number>({ label, value, options, placeholder = 'Select option', onChange, className }: SelectProps<T>) {
   return (
-    <div className="flex flex-col gap-1 mb-4">
-      <label className={`block mb-1 text-sm text-black font-semibold text-primary-light`}>{label}</label>
+    <div className="flex flex-col gap-1">
+      {label && <label className="block mb-1 text-sm font-semibold text-primary-light">{label}</label>}
 
       <select
-        value={value ?? ''}
-        onChange={(e) => onChange(e.target.value)}
-        className="
-          text-primary-light font-base text-sm h-auto w-full
+        value={value !== undefined ? String(value) : ''}
+        onChange={(e) => {
+          const selected = options.find((opt) => String(opt.value) === e.target.value);
+          if (selected) onChange(selected.value);
+        }}
+        className={`
+          text-primary-light font-base text-sm 
           bg-[var(--white)]
           px-4 py-2
           border rounded-sm
@@ -28,14 +32,14 @@ export default function Select({ label, value, options, placeholder = 'Select op
           focus:outline-none
           focus:ring-0
           focus:border-[#25a194]
-        "
+          ${className}`}
       >
         <option value="" disabled>
           {placeholder}
         </option>
 
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
+          <option key={String(opt.value)} value={String(opt.value)}>
             {opt.label}
           </option>
         ))}
