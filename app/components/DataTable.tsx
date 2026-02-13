@@ -14,7 +14,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
 
-
   const table = useReactTable({
     data,
     columns,
@@ -36,6 +35,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
   const start = total === 0 ? 0 : pageIndex * pageSize + 1;
   const end = Math.min((pageIndex + 1) * pageSize, total);
+
+  const pageCount = table.getPageCount();
+
   return (
     <div className="w-full overflow-y-auto">
       <div className="flex items-center justify-between py-3">
@@ -72,7 +74,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         </div>
       </div>
 
-      <table className="w-full text-sm">
+      <table className="w-full text-sm bordered-table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -105,32 +107,51 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         </tbody>
       </table>
       {/* Pagination */}
-      <div className="flex items-center justify-between p-3 border-t text-sm">
+      <div className="flex items-center justify-between p-3 text-sm">
         {/* left side */}
-        <div className="flex items-center gap-6 text-secondary-light">
+        <div className="flex items-center gap-6 text-secondary-light text-xs">
           <span>
             Showing <b>{start}</b> to <b>{end}</b> of <b>{total}</b> entries
           </span>
         </div>
 
         {/* right side */}
-        <div className="flex items-center gap-3">
-          <span>
-            Page{' '}
-            <strong>
-              {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-            </strong>
-          </span>
+        <div className="flex items-center gap-1">
+          {/* FIRST */}
+          <button onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} className="text-primary-light px-2 py-1 rounded disabled:opacity-40">
+            <i className="ri-arrow-left-double-fill"></i>
+          </button>
 
-          <div className="flex gap-1">
-            <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} className="px-2 py-1 border rounded disabled:opacity-40">
-              Prev
-            </button>
+          {/* PREV */}
+          <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} className="text-primary-light px-2 py-1 rounded disabled:opacity-40">
+            <i className="ri-arrow-left-s-line" />
+          </button>
 
-            <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} className="px-2 py-1 border rounded disabled:opacity-40">
-              Next
-            </button>
-          </div>
+          {/* PAGE NUMBERS */}
+          {Array.from({ length: pageCount })
+            .filter((_, i) => Math.abs(i - pageIndex) <= 2)
+            .map((_, i) => (
+              <button
+                key={i}
+                onClick={() => table.setPageIndex(i)}
+                className={`
+                  min-w-[30px] h-7 rounded text-sm
+                  ${pageIndex === i ? 'bg-[var(--primary-600)] text-white' : 'bg-[var(--neutral-200)] hover:bg-gray-200 text-secondary-light transition'}
+                `}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+          {/* NEXT */}
+          <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} className="text-primary-light px-2 py-1 rounded disabled:opacity-40">
+            <i className="ri-arrow-right-s-line" />
+          </button>
+
+          {/* LAST */}
+          <button onClick={() => table.setPageIndex(pageCount - 1)} disabled={!table.getCanNextPage()} className="text-primary-light px-2 py-1 rounded  disabled:opacity-40">
+            <i className="ri-arrow-right-double-fill"></i>
+          </button>
         </div>
       </div>
     </div>
