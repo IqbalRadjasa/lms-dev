@@ -14,6 +14,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
 
+
   const table = useReactTable({
     data,
     columns,
@@ -29,6 +30,12 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  const { pageIndex, pageSize } = table.getState().pagination;
+
+  const total = table.getFilteredRowModel().rows.length;
+
+  const start = total === 0 ? 0 : pageIndex * pageSize + 1;
+  const end = Math.min((pageIndex + 1) * pageSize, total);
   return (
     <div className="w-full overflow-y-auto">
       <div className="flex items-center justify-between py-3">
@@ -100,17 +107,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       {/* Pagination */}
       <div className="flex items-center justify-between p-3 border-t text-sm">
         {/* left side */}
-        {/* <div className="flex items-center gap-2">
-          <span>Rows per page</span>
-
-          <select value={table.getState().pagination.pageSize} onChange={(e) => table.setPageSize(Number(e.target.value))} className="border rounded-md px-2 py-1">
-            {[5, 10, 20, 50].map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
-        </div> */}
+        <div className="flex items-center gap-6 text-secondary-light">
+          <span>
+            Showing <b>{start}</b> to <b>{end}</b> of <b>{total}</b> entries
+          </span>
+        </div>
 
         {/* right side */}
         <div className="flex items-center gap-3">

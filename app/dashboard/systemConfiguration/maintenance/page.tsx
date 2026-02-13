@@ -50,7 +50,7 @@ const columns: ColumnDef<Log>[] = [
           ${status == 'ON' ? 'bg-success-100 text-success-600' : 'bg-red-100 text-red-600'}
         `}
         >
-          {status == 'ON' ? <i className="ri-lock-unlock-line mr-1"></i> : <i className="ri-lock-line mr-1"></i>}
+          {status == 'ON' ? <i className="ri-lock-line mr-1"></i> : <i className="ri-lock-unlock-line mr-1"></i>}
           {status}
         </span>
       );
