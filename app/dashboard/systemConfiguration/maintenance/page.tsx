@@ -11,6 +11,7 @@ import { AlertConfirmation } from '@/app/components/AlertConfirmation';
 import Breadcrumb from '@/app/components/Breadcrumb';
 import { DataTable } from '@/app/components/DataTable';
 import Dropdown from '@/app/components/Dropdown';
+import { useConfirm } from '@/app/components/ConfirmProvider';
 
 type Log = {
   id: number;
@@ -87,6 +88,8 @@ const columns: ColumnDef<Log>[] = [
 ];
 
 export default function Maintenance() {
+  const confirm = useConfirm();
+
   const [status, setStatus] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -121,7 +124,7 @@ export default function Maintenance() {
     setKode(value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (pesan.length < 5 || kode.length < 5) {
@@ -130,20 +133,23 @@ export default function Maintenance() {
       return;
     }
 
-    AlertConfirmation('Apakah kamu yakin?', () => {
+    
+      const confirmed = await confirm('Apakah kamu yakin?');
+
+      if (!confirmed) return;
       console.log('mode on');
       localStorage.setItem('maintenance', 'true');
-
       window.location.reload();
-    });
   };
 
-  const handleMaintenance = () => {
+  const handleMaintenance = async () => {
     if (status) {
-      AlertConfirmation('Apakah kamu yakin?', () => {
-        localStorage.setItem('maintenance', 'false');
-        setStatus(false);
-      });
+      const confirmed = await confirm('Apakah kamu yakin?');
+
+      if (!confirmed) return;
+
+      localStorage.setItem('maintenance', 'false');
+      setStatus(false);
     } else {
       setStatus(true);
       setOpen(true);

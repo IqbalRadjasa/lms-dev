@@ -1,5 +1,6 @@
 import './globals.css';
 import 'remixicon/fonts/remixicon.css';
+import { ConfirmProvider } from './components/ConfirmProvider';
 
 import { Toaster } from 'react-hot-toast';
 import { Inter } from 'next/font/google';
@@ -44,7 +45,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <Toaster position="top-center" />
-        {children}
+        <ConfirmProvider>{children}</ConfirmProvider>
       </body>
     </html>
   );

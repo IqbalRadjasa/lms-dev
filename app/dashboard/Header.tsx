@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 
 import { AlertConfirmation } from '../components/AlertConfirmation';
+import { useConfirm } from '../components/ConfirmProvider';
 import ThemeToggle from '../components/ThemeToggle';
 
-export default function Header({ user, role }: { user?: string, role?: string }) {
+export default function Header({ user, role }: { user?: string; role?: string }) {
   const router = useRouter();
+  const confirm = useConfirm();
 
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -25,39 +27,82 @@ export default function Header({ user, role }: { user?: string, role?: string })
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const handleLogout = (e: React.FormEvent) => {
+  const handleLogout = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    AlertConfirmation('Kamu yakin ingin logout?', async () => {
-      setLoading(true);
+    if (loading) return;
 
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-          method: 'POST',
-          credentials: 'include',
-        });
+    const confirmed = await confirm('Apakah kamu yakin?');
+    if (!confirmed) return;
 
-        if (!res.ok) {
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (!res.ok) {
+        let errorMessage = 'Logout failed';
+
+        try {
           const data = await res.json();
-          throw new Error(data.message || 'Logout failed');
-        }
+          errorMessage = data.message || errorMessage;
+        } catch {}
 
-        toast.success('Logout berhasil!', {
-          duration: 1500,
-          style: {
-            background: '#113F67',
-            color: '#fff',
-          },
-        });
-
-        router.push('/login');
-      } catch (err: any) {
-        toast.error(err.message);
-      } finally {
-        setLoading(false);
+        throw new Error(errorMessage);
       }
-    });
+
+      toast.success('Logout berhasil!', {
+        duration: 1500,
+        style: {
+          background: '#113F67',
+          color: '#fff',
+        },
+      });
+
+      router.push('/login');
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  // const handleLogout = (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   AlertConfirmation('Kamu yakin ingin logout?', async () => {
+  //     setLoading(true);
+
+  //     try {
+  //       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
+  //         method: 'POST',
+  //         credentials: 'include',
+  //       });
+
+  //       if (!res.ok) {
+  //         const data = await res.json();
+  //         throw new Error(data.message || 'Logout failed');
+  //       }
+
+  //       toast.success('Logout berhasil!', {
+  //         duration: 1500,
+  //         style: {
+  //           background: '#113F67',
+  //           color: '#fff',
+  //         },
+  //       });
+
+  //       router.push('/login');
+  //     } catch (err: any) {
+  //       toast.error(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   });
+  // };
 
   return (
     <header className="header h-18 flex items-center justify-between px-4 py-3">
