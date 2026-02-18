@@ -10,9 +10,10 @@ type InputProps = {
   placeholder?: string;
   required?: boolean;
   message?: string;
+  disabled?: boolean;
 };
 
-export default function Input({ label, type = 'text', value, onChange, placeholder, required = false, message = '' }: InputProps) {
+export default function Input({ label, type = 'text', value, onChange, placeholder, required = false, message = '', disabled = false }: InputProps) {
   const [show, setShow] = useState(false);
 
   const isPassword = type === 'password';
@@ -37,16 +38,18 @@ export default function Input({ label, type = 'text', value, onChange, placehold
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
+          disabled={disabled}
           className="
-        w-full
-        px-4 py-2 pr-10
-        text-xs
-        border rounded-sm
-        border-[var(--input-form-light)]
-        focus:outline-none
-        focus:ring-0
-        focus:border-[#25a194]
-        text-primary-light
+          w-full
+          px-4 py-2 pr-10
+          text-xs
+          border border-[var(--input-form-light)]
+          rounded-sm
+          focus:outline-none
+          focus:ring-0
+          focus:border-[#25a194]
+          text-primary-light
+          disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none dark:disabled:bg-gray-800/20
       "
         />
 

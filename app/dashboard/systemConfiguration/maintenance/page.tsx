@@ -6,7 +6,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import Modal from '../../../components/Modal';
 import Toggle from '../../../components/Toggle';
 import Input from '@/app/components/Input';
-import ButtonPrimary from '@/app/components/ButtonPrimary';
+import Button from '@/app/components/Button';
 import { AlertConfirmation } from '@/app/components/AlertConfirmation';
 import Breadcrumb from '@/app/components/Breadcrumb';
 import { DataTable } from '@/app/components/DataTable';
@@ -133,13 +133,12 @@ export default function Maintenance() {
       return;
     }
 
-    
-      const confirmed = await confirm('Apakah kamu yakin?');
+    const confirmed = await confirm('Apakah kamu yakin?');
 
-      if (!confirmed) return;
-      console.log('mode on');
-      localStorage.setItem('maintenance', 'true');
-      window.location.reload();
+    if (!confirmed) return;
+    console.log('mode on');
+    localStorage.setItem('maintenance', 'true');
+    window.location.reload();
   };
 
   const handleMaintenance = async () => {
@@ -209,7 +208,7 @@ export default function Maintenance() {
           <Input label="Masukkan kode aktivasi" value={kode} onChange={validateKode} placeholder="....." required message={kodeError} />
 
           <div className="flex justify-end gap-2 mt-4">
-            <ButtonPrimary
+            <Button
               type="button"
               onClick={() => {
                 setPesan('');
@@ -217,14 +216,13 @@ export default function Maintenance() {
                 setStatus(false);
                 setOpen(false);
               }}
-              className="px-4 py-2 rounded text-primary-light text-sm font-semibold bg-[var(--neutral-300)]"
             >
               Batal
-            </ButtonPrimary>
+            </Button>
 
-            <ButtonPrimary type="submit" className="px-4 py-2 rounded text-white text-sm font-semibold bg-[var(--primary-600)]">
+            <Button primary={true} type="submit">
               Kirim
-            </ButtonPrimary>
+            </Button>
           </div>
         </form>
       </Modal>

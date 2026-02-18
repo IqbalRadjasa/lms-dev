@@ -10,9 +10,10 @@ type PreviewFile = File & {
 type Props = {
   label: string;
   onChange?: (files: File[]) => void;
+  disabled?: boolean;
 };
 
-export default function Dropzone({ label, onChange }: Props) {
+export default function Dropzone({ label, onChange, disabled = false }: Props) {
   const [files, setFiles] = useState<PreviewFile[]>([]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -49,20 +50,21 @@ export default function Dropzone({ label, onChange }: Props) {
 
   return (
     <div className="mb-4">
-      <label className="block mb-1 text-sm text-black font-semibold text-primary-light ">{label}</label>
+      <label className="block mb-1 text-xs font-semibold text-primary-light ">{label}</label>
       <div className="space-y-4">
         {/* Drop area */}
         <div
           {...getRootProps()}
           className={`
           border-2 border-dashed border-[var(--input-form-light)]
-          p-6 rounded-sm text-center cursor-pointer
+          p-6 rounded-sm text-center 
+          ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
           transition
           bg-[var(--white)]
         `}
         >
-          <input {...getInputProps()} />
-          <p className="text-sm text-[var(--text-secondary-light)]">Drag & drop images or documents here, or click to select</p>
+          <input {...getInputProps()} disabled={disabled} />
+          <p className="text-xs text-[var(--text-secondary-light)]">Drag & drop images or documents here, or click to select</p>
         </div>
 
         {/* Preview list */}
@@ -79,7 +81,7 @@ export default function Dropzone({ label, onChange }: Props) {
 
                 {/* File info */}
                 <div className="flex-1">
-                  <p className="text-sm text-[var(--text-secondary-light)] truncate">{file.name}</p>
+                  <p className="text-xs text-[var(--text-secondary-light)] truncate">{file.name}</p>
                   <p className="text-xs text-[var(--text-secondary-light)]">{(file.size / 1024).toFixed(1)} KB</p>
                 </div>
 

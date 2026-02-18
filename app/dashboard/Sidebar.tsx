@@ -89,7 +89,16 @@ export default function Sidebar() {
         </button>
 
         {!sidebarCollapsed && openMenu === 'system' && (
-          <div className="ml-8 mt-1 space-y-1 sidebar-submenu">
+          <div className="ml-8 mt-1 space-y-1 sidebar-submen">
+            <button
+              className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
+                isActive('/dashboard/systemConfiguration/globalSettings') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'
+              }`}
+              onClick={() => router.push('/dashboard/systemConfiguration/globalSettings')}
+            >
+              <i className="ri-circle-fill text-[0.4rem]"></i>
+              {!sidebarCollapsed && <span className="regular-text">Global Settings</span>}
+            </button>
             <button
               className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
                 isActive('/dashboard/systemConfiguration/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'

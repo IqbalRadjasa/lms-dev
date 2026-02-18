@@ -436,3 +436,14 @@ hr {
   padding: 12px;
   background-color: var(--white);
 }
+
+button:disabled,
+[type='button']:disabled,
+[type='reset']:disabled,
+[type='submit']:disabled {
+  cursor: not-allowed;
+}
+
+select:disabled {
+  opacity: inherit;
+}
