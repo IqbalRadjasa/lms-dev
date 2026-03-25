@@ -110,6 +110,16 @@ export default function Sidebar() {
             </button>
           </div>
         )}
+
+        <button
+          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard/globalComponents') ? 'active' : 'not-active'}`}
+          onClick={() => {
+            router.push('/dashboard/userManagement');
+          }}
+        >
+          <i className="ri-user-line text-lg"></i>
+          {!sidebarCollapsed && <span className="regular-text">User Management</span>}
+        </button>
       </nav>
     </aside>
   );
