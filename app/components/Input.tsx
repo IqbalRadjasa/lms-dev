@@ -66,7 +66,7 @@ export default function Input({ label, type = 'text', value, onChange, placehold
           </button>
         )}
       </div>
-      <span className="text-red-600 text-xs font-semibold block">{message}</span>
+      <span className="text-red-600 text-xs block">{message}</span>
     </div>
   );
 }

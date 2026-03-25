@@ -7,6 +7,7 @@ import Input from '@/app/components/Input';
 import Select from '@/app/components/Select';
 import Dropzone from '@/app/components/Dropzone';
 import Button from '@/app/components/Button';
+import toast from 'react-hot-toast';
 
 export default function globalSettings() {
   const [namaSekolah, setNamaSekolah] = useState('');
@@ -35,13 +36,24 @@ export default function globalSettings() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    toast.success('Sistem berhasil diubah.', {
+      duration: 1500,
+      className: 'border shadow-lg',
+      style: {
+        background: '#273142',
+        color: '#fff',
+      },
+    });
+  };
+
   return (
     <div>
       <h1 className="font-semibold text-2xl mb-1 text-primary-light">Global Settings</h1>
       <Breadcrumb />
 
       <div className="card mt-8">
-        <form action="">
+        <form>
           <div className="flex gap-2">
             <div className="w-2/6">
               <Input label="Nama Sekolah" value={namaSekolah} onChange={validateNamaSekolah} placeholder="....." required message={namaSekolahError} disabled={edit ? false : true} />
@@ -64,8 +76,8 @@ export default function globalSettings() {
               <Select<number>
                 label="Semester"
                 className="h-auto w-full"
-                value={tahunAkademik}
-                onChange={setTahunAkademik}
+                value={semester}
+                onChange={setSemester}
                 disabled={edit ? false : true}
                 options={[
                   { label: '1 (Satu)', value: 1 },
@@ -86,7 +98,7 @@ export default function globalSettings() {
               {edit ? 'Batal' : 'Edit'}
             </Button>
 
-            <Button primary={true} type="submit" disabled={edit ? false : true}>
+            <Button primary={true} type="button" disabled={edit ? false : true} onClick={handleSubmit}>
               Simpan
             </Button>
           </div>

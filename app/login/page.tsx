@@ -83,10 +83,7 @@ export default function LoginPage() {
 
       toast.success('Login berhasil!', {
         duration: 1500,
-        style: {
-          background: '#113F67',
-          color: '#fff',
-        },
+        className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
       });
 
       router.push('/dashboard');
