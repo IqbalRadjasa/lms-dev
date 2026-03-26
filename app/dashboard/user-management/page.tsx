@@ -1,17 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
+import React, { useState, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Modal from '@/app/components/Modal';
-import Toggle from '@/app/components/Toggle';
 import Input from '@/app/components/Input';
+import Toggle from '@/app/components/Toggle';
 import Button from '@/app/components/Button';
-import { AlertConfirmation } from '@/app/components/AlertConfirmation';
+import Dropdown from '@/app/components/Dropdown';
 import Breadcrumb from '@/app/components/Breadcrumb';
 import { DataTable } from '@/app/components/DataTable';
-import Dropdown from '@/app/components/Dropdown';
 import { useConfirm } from '@/app/components/ConfirmProvider';
+import { AlertConfirmation } from '@/app/components/AlertConfirmation';
 
 type Log = {
   id: number;
@@ -78,18 +79,13 @@ const columns: ColumnDef<Log>[] = [
 ];
 
 export default function UserManagement() {
+  const router = useRouter();
   const confirm = useConfirm();
 
-  const [status, setStatus] = useState(false);
   const [open, setOpen] = useState(false);
 
   const [pesan, setPesan] = useState('');
   const [pesanError, setPesanError] = useState('');
-
-  useEffect(() => {
-    const saved = localStorage.getItem('maintenance') === 'true';
-    setStatus(saved);
-  }, []);
 
   const validatePesan = (value: string) => {
     if (value.length < 5) {
@@ -148,41 +144,20 @@ export default function UserManagement() {
           <Breadcrumb />
         </div>
         <div>
-          <Button primary={true}>+ Tambah User</Button>
+          <Button
+            primary={true}
+            onClick={() => {
+              router.push('/dashboard/user-management/tambah');
+            }}
+          >
+            + Tambah User
+          </Button>
         </div>
       </div>
 
       <div className="card mt-8">
         <DataTable columns={columns} data={data} />
       </div>
-
-      <Modal open={open} onClose={() => setStatus(false)} title="Maintenance">
-        <form onSubmit={handleSubmit}>
-          <img src="/maintenance.jpg" className="w-100 h-auto mx-auto mb-3" />
-
-          <Input label="Masukkan pesan" value={pesan} onChange={validatePesan} placeholder="....." required message={pesanError} />
-
-          <Input label="Masukkan kode aktivasi" value={kode} onChange={validateKode} placeholder="....." required message={kodeError} />
-
-          <div className="flex justify-end gap-2 mt-4">
-            <Button
-              type="button"
-              onClick={() => {
-                setPesan('');
-                setKode('');
-                setStatus(false);
-                setOpen(false);
-              }}
-            >
-              Batal
-            </Button>
-
-            <Button primary={true} type="submit">
-              Kirim
-            </Button>
-          </div>
-        </form>
-      </Modal>
     </div>
   );
 }
