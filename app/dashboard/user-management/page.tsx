@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -144,19 +145,16 @@ export default function UserManagement() {
           <Breadcrumb />
         </div>
         <div>
-          <Button
-            primary={true}
-            onClick={() => {
-              router.push('/dashboard/user-management/tambah');
-            }}
-          >
-            + Tambah User
-          </Button>
+          <Link href="/dashboard/user-management/tambah">
+            <Button primary={true}>+ Tambah User</Button>
+          </Link>
         </div>
       </div>
 
       <div className="card mt-8">
-        <DataTable columns={columns} data={data} />
+        <div className="card-body">
+          <DataTable columns={columns} data={data} />
+        </div>
       </div>
     </div>
   );

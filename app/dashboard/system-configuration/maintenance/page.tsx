@@ -166,25 +166,26 @@ export default function Maintenance() {
 
   return (
     <div>
-      <h1 className="font-semibold text-2xl mb-1 text-primary-light">Maintenance</h1>
+      <h1 className="font-semibold text-xl mb-1 text-primary-light">Maintenance</h1>
       <Breadcrumb />
 
       <div className="card mt-8">
-        <div className="flex items-center mb-5">
-          <span className="font-base text-primary-light mr-3">Maintenance Mode:</span>
-          <Toggle checked={status} onChange={handleMaintenance} />
-          <button
-            className={`
+        <div className="card-body">
+          <div className="flex items-center mb-5">
+            <span className="font-base text-primary-light mr-3">Maintenance Mode:</span>
+            <Toggle checked={status} onChange={handleMaintenance} />
+            <button
+              className={`
               ml-2 
               px-3 py-2
               rounded-full
               ${!status ? 'not-active bg-[var(--neutral-200)]' : 'active'}
               flex items-center
             `}
-          >
-            {!status ? <i className="ri-lock-unlock-line"></i> : <i className="ri-lock-line"></i>}
-          </button>
-          {/* <button
+            >
+              {!status ? <i className="ri-lock-unlock-line"></i> : <i className="ri-lock-line"></i>}
+            </button>
+            {/* <button
             className={`
               ml-2 
               font-semibold 
@@ -195,8 +196,9 @@ export default function Maintenance() {
           >
             {!status ? 'Off' : 'On'}
           </button> */}
+          </div>
+          <DataTable columns={columns} data={data} />
         </div>
-        <DataTable columns={columns} data={data} />
       </div>
 
       <Modal open={open} onClose={() => setStatus(false)} title="Maintenance">

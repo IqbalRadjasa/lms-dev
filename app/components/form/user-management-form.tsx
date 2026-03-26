@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -225,14 +226,17 @@ export default function UserManagementForm() {
       </div>
 
       <div className="flex justify-center mt-4 gap-2">
-        <Button
-          primary={false}
-          onClick={() => {
-            router.push('/dashboard/user-management');
-          }}
-        >
-          Kembali
-        </Button>
+        <Link href="/dashboard/user-management">
+          <Button
+            primary={false}
+            onClick={() => {
+              router.push('/dashboard/user-management');
+            }}
+          >
+            Kembali
+          </Button>
+        </Link>
+
         <Button primary={true} type="submit">
           Simpan
         </Button>

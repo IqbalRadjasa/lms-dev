@@ -38,70 +38,78 @@ export default function MyComponentsPage() {
 
   return (
     <div>
-      <h1 className="font-semibold text-2xl mb-1 text-primary-light">Global Components</h1>
+      <h1 className="font-semibold text-xl mb-1 text-primary-light">Global Components</h1>
       <Breadcrumb />
 
       {/* INPUT FIELDS */}
       <div className="card mt-8">
-        <span className="font-semibold text-primary-light">Inputs</span>
-        <hr className="my-3" />
+        <div className="card-header border-b-1">
+          <h6 className="font-semibold text-primary-light">Inputs</h6>
+        </div>
+        <div className="card-body">
+          <Input label="Label" value={val} onChange={validate} placeholder="Placeholder" />
 
-        <Input label="Label" value={val} onChange={validate} placeholder="Placeholder" />
+          <Select
+            label="Label"
+            placeholder="Placeholder"
+            value={option}
+            onChange={setOption}
+            options={[
+              { label: 'Admin', value: 'admin' },
+              { label: 'Editor', value: 'editor' },
+              { label: 'Viewer', value: 'viewer' },
+            ]}
+            className="h-auto w-full"
+          />
+          <Textarea label="Description" placeholder="Write something..." value={desc} onChange={setDesc} rows={5} />
 
-        <Select
-          label="Label"
-          placeholder="Placeholder"
-          value={option}
-          onChange={setOption}
-          options={[
-            { label: 'Admin', value: 'admin' },
-            { label: 'Editor', value: 'editor' },
-            { label: 'Viewer', value: 'viewer' },
-          ]}
-          className="h-auto w-full"
-        />
-        <Textarea label="Description" placeholder="Write something..." value={desc} onChange={setDesc} rows={5} />
-
-        <Dropzone label="Label" onChange={setFiles} />
+          <Dropzone label="Label" onChange={setFiles} />
+        </div>
       </div>
 
       {/* MODAL */}
       <div className="card mt-8">
-        <span className="font-semibold text-primary-light">Modal</span>
-        <hr className="my-3" />
+        <div className="card-header border-b-1">
+          <h6 className="font-semibold text-primary-light">Modal</h6>
+        </div>
 
-        <button onClick={() => setOpen(true)} className="px-4 py-2 bg-[var(--primary-600)] text-white text-sm font-semibold rounded">
-          Open Modal
-        </button>
-
-        <Modal open={open} onClose={() => setOpen(false)} title="Title">
-          <p className="text-sm mb-4 text-primary-light">Put your form here</p>
-
-          <button onClick={() => setOpen(false)} className="px-4 py-2 rounded text-primary-light font-semibold" style={{ backgroundColor: 'var(--neutral-300)' }}>
-            Close
+        <div className="card-body">
+          <button onClick={() => setOpen(true)} className="px-4 py-2 bg-[var(--primary-600)] text-white text-sm font-semibold rounded">
+            Open Modal
           </button>
-        </Modal>
+
+          <Modal open={open} onClose={() => setOpen(false)} title="Title">
+            <p className="text-sm mb-4 text-primary-light">Put your form here</p>
+
+            <button onClick={() => setOpen(false)} className="px-4 py-2 rounded text-primary-light font-semibold" style={{ backgroundColor: 'var(--neutral-300)' }}>
+              Close
+            </button>
+          </Modal>
+        </div>
       </div>
 
       {/* LOADING SKELETON */}
       <div className="card mt-8">
-        <span className="font-semibold text-primary-light">Loading Skeleton</span>
-        <hr className="my-3" />
+        <div className="card-header border-b-1">
+          <h6 className="font-semibold text-primary-light">Loading Skeleton</h6>
+        </div>
 
-        <div className="w-full max-w-sm rounded-md border border-[var(--primary-600)] p-4">
-          <div className="flex animate-pulse space-x-4">
-            <div className="size-10 rounded-full bg-gray-200"></div>
+        <div className="card-body">
+          <div className="w-full max-w-sm rounded-md border border-[var(--primary-600)] p-4">
+            <div className="flex animate-pulse space-x-4">
+              <div className="size-10 rounded-full bg-gray-200"></div>
 
-            <div className="flex-1 space-y-6 py-1">
-              <div className="h-2 rounded bg-gray-200"></div>
-
-              <div className="space-y-3">
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="col-span-2 h-2 rounded bg-gray-200"></div>
-                  <div className="col-span-1 h-2 rounded bg-gray-200"></div>
-                </div>
-
+              <div className="flex-1 space-y-6 py-1">
                 <div className="h-2 rounded bg-gray-200"></div>
+
+                <div className="space-y-3">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="col-span-2 h-2 rounded bg-gray-200"></div>
+                    <div className="col-span-1 h-2 rounded bg-gray-200"></div>
+                  </div>
+
+                  <div className="h-2 rounded bg-gray-200"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -110,18 +118,24 @@ export default function MyComponentsPage() {
 
       {/* BREADCRUMB */}
       <div className="card mt-8">
-        <span className="font-semibold text-primary-light">Breadcrumb</span>
-        <hr className="my-3" />
+        <div className="card-header border-b-1">
+          <h6 className="font-semibold text-primary-light">Breadcrumb</h6>
+        </div>
 
-        <Breadcrumb />
+        <div className="card-body">
+          <Breadcrumb />
+        </div>
       </div>
 
       {/* TOGGLE */}
       <div className="card mt-8">
-        <span className="font-semibold text-primary-light">Toggle Button</span>
-        <hr className="my-3" />
+        <div className="card-header border-b-1">
+          <h6 className="font-semibold text-primary-light">Toggle Button</h6>
+        </div>
 
-        <Toggle checked={status} onChange={handleToggle} />
+        <div className="card-body">
+          <Toggle checked={status} onChange={handleToggle} />
+        </div>
       </div>
     </div>
   );
