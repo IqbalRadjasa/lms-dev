@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -48,32 +49,34 @@ export default function Sidebar() {
           {!sidebarCollapsed && <span className="regular-text">Sembunyikan</span>}
         </button>
 
-        <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard') ? 'active' : 'not-active'}`}
-          onClick={() => {
-            setOpenMenu(null);
-            router.push('/dashboard');
-          }}
-        >
-          <i className="ri-home-4-line text-lg"></i>
-          {!sidebarCollapsed && <span className="regular-text">Dashboard</span>}
-        </button>
+        <Link href="/dashboard">
+          <button
+            className={`w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard') ? 'active' : 'not-active'}`}
+            onClick={() => {
+              setOpenMenu(null);
+            }}
+          >
+            <i className="ri-home-4-line text-lg"></i>
+            {!sidebarCollapsed && <span className="regular-text">Dashboard</span>}
+          </button>
+        </Link>
 
-        <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard/globalComponents') ? 'active' : 'not-active'}`}
-          onClick={() => {
-            setOpenMenu(null);
-            router.push('/dashboard/globalComponents');
-          }}
-        >
-          <i className="ri-shapes-line text-lg"></i>
-          {!sidebarCollapsed && <span className="regular-text">Global Components</span>}
-        </button>
+        <Link href="/dashboard/global-components">
+          <button
+            className={`w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard/global-components') ? 'active' : 'not-active'}`}
+            onClick={() => {
+              setOpenMenu(null);
+            }}
+          >
+            <i className="ri-shapes-line text-lg"></i>
+            {!sidebarCollapsed && <span className="regular-text">Global Components</span>}
+          </button>
+        </Link>
 
         <button
           onClick={() => setOpenMenu(openMenu === 'system' ? null : 'system')}
           className={`
-            w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${openMenu === 'system' || pathname.startsWith('/dashboard/system') ? 'active' : 'not-active'}
+            w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${openMenu === 'system' || pathname.startsWith('/dashboard/system') ? 'active' : 'not-active'}
           `}
         >
           <i className="ri-tools-line text-lg"></i>
@@ -90,36 +93,36 @@ export default function Sidebar() {
 
         {!sidebarCollapsed && openMenu === 'system' && (
           <div className="ml-8 mt-1 space-y-1 sidebar-submen">
-            <button
-              className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
-                isActive('/dashboard/systemConfiguration/globalSettings') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'
-              }`}
-              onClick={() => router.push('/dashboard/systemConfiguration/globalSettings')}
-            >
-              <i className="ri-circle-fill text-[0.4rem]"></i>
-              {!sidebarCollapsed && <span className="regular-text">Global Settings</span>}
-            </button>
-            <button
-              className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
-                isActive('/dashboard/systemConfiguration/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'
-              }`}
-              onClick={() => router.push('/dashboard/systemConfiguration/maintenance')}
-            >
-              <i className="ri-circle-fill text-[0.4rem]"></i>
-              {!sidebarCollapsed && <span className="regular-text">Maintenance</span>}
-            </button>
+            <Link href="/dashboard/system-configuration/global-settings">
+              <button
+                className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
+                  isActive('/dashboard/system-configuration/global-settings') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'
+                }`}
+              >
+                <i className="ri-circle-fill text-[0.4rem]"></i>
+                {!sidebarCollapsed && <span className="regular-text">Global Settings</span>}
+              </button>
+            </Link>
+
+            <Link href="/dashboard/system-configuration/maintenance">
+              <button
+                className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
+                  isActive('/dashboard/system-configuration/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'
+                }`}
+              >
+                <i className="ri-circle-fill text-[0.4rem]"></i>
+                {!sidebarCollapsed && <span className="regular-text">Maintenance</span>}
+              </button>
+            </Link>
           </div>
         )}
 
-        <button
-          className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard/globalComponents') ? 'active' : 'not-active'}`}
-          onClick={() => {
-            router.push('/dashboard/user-management');
-          }}
-        >
-          <i className="ri-user-line text-lg"></i>
-          {!sidebarCollapsed && <span className="regular-text">User Management</span>}
-        </button>
+        <Link href="/dashboard/user-management">
+          <button className={`w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard/user-management') ? 'active' : 'not-active'}`}>
+            <i className="ri-user-line text-lg"></i>
+            {!sidebarCollapsed && <span className="regular-text">User Management</span>}
+          </button>
+        </Link>
       </nav>
     </aside>
   );

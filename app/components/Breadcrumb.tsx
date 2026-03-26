@@ -10,9 +10,11 @@ export default function Breadcrumb() {
 
   const formatLabel = (text: string) => {
     return text
-      .replace(/([A-Z])/g, ' $1') // camelCase → space
-      .replace(/-/g, ' ') // kebab → space
-      .replace(/^./, (c) => c.toUpperCase())
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/-/g, ' ')
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
       .trim();
   };
 
