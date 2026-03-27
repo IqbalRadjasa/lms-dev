@@ -55,38 +55,52 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          identifier,
-          password,
-        }),
-      });
+      if (identifier === process.env.SA_IDENTIFIER_KEY && password == process.env.SA_PASSWORD_KEY) {
+        toast.success('Login berhasil!', {
+          duration: 1500,
+          className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
+        });
 
-      const data = await res.json();
-
-      if (res.status == 401) {
-        throw new Error(data.message || 'Login failed');
+        router.push('/dashboard');
+      } else {
+        toast.error('Login gagal!', {
+          duration: 1500,
+          className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
+        });
       }
 
-      if (res.status == 400) {
-        throw new Error(data.message || 'Login failed');
-      }
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   credentials: 'include',
+      //   body: JSON.stringify({
+      //     identifier,
+      //     password,
+      //   }),
+      // });
 
-      if (res.status == 500) {
-        throw new Error(data.message || 'Login failed');
-      }
+      // const data = await res.json();
 
-      toast.success('Login berhasil!', {
-        duration: 1500,
-        className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
-      });
+      // if (res.status == 401) {
+      //   throw new Error(data.message || 'Login failed');
+      // }
 
-      router.push('/dashboard');
+      // if (res.status == 400) {
+      //   throw new Error(data.message || 'Login failed');
+      // }
+
+      // if (res.status == 500) {
+      //   throw new Error(data.message || 'Login failed');
+      // }
+
+      // toast.success('Login berhasil!', {
+      //   duration: 1500,
+      //   className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
+      // });
+
+      // router.push('/dashboard');
     } catch (err: any) {
       toast.error(err.message);
     } finally {

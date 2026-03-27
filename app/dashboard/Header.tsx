@@ -30,79 +30,49 @@ export default function Header({ user, role }: { user?: string; role?: string })
   const handleLogout = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (loading) return;
+    // if (loading) return;
 
     const confirmed = await confirm('Apakah kamu yakin?');
-    if (!confirmed) return;
-
-    setLoading(true);
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-        method: 'POST',
-        credentials: 'include',
-      });
-
-      if (!res.ok) {
-        let errorMessage = 'Logout failed';
-
-        try {
-          const data = await res.json();
-          errorMessage = data.message || errorMessage;
-        } catch {}
-
-        throw new Error(errorMessage);
-      }
-
-      toast.success('Logout berhasil!', {
-        duration: 1500,
-        style: {
-          background: '#113F67',
-          color: '#fff',
-        },
-      });
-
+    if (!confirmed) {
+      return;
+    } else {
       router.push('/login');
-    } catch (err: any) {
-      toast.error(err.message);
-    } finally {
-      setLoading(false);
     }
+
+    // setLoading(true);
+
+    // try {
+    //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
+    //     method: 'POST',
+    //     credentials: 'include',
+    //   });
+
+    //   if (!res.ok) {
+    //     let errorMessage = 'Logout failed';
+
+    //     try {
+    //       const data = await res.json();
+    //       errorMessage = data.message || errorMessage;
+    //     } catch {}
+
+    //     throw new Error(errorMessage);
+    //   }
+
+    //   toast.success('Logout berhasil!', {
+    //     duration: 1500,
+    //     style: {
+    //       background: '#113F67',
+    //       color: '#fff',
+    //     },
+    //   });
+
+    //   // router.push('/login');
+    // } catch (err: any) {
+    //   toast.error(err.message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
-
-  // const handleLogout = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   AlertConfirmation('Kamu yakin ingin logout?', async () => {
-  //     setLoading(true);
-
-  //     try {
-  //       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-  //         method: 'POST',
-  //         credentials: 'include',
-  //       });
-
-  //       if (!res.ok) {
-  //         const data = await res.json();
-  //         throw new Error(data.message || 'Logout failed');
-  //       }
-
-  //       toast.success('Logout berhasil!', {
-  //         duration: 1500,
-  //         style: {
-  //           background: '#113F67',
-  //           color: '#fff',
-  //         },
-  //       });
-
-  //       router.push('/login');
-  //     } catch (err: any) {
-  //       toast.error(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   });
-  // };
 
   return (
     <header className="header h-18 flex items-center justify-between px-4 py-3">
@@ -110,13 +80,6 @@ export default function Header({ user, role }: { user?: string; role?: string })
         <div className="flex items-center">
           <ThemeToggle />
         </div>
-        {/* <div onClick={() => setOpen(!open)} className="flex items-center border-l-2 border-[#d1d5db] text-[var(--text-secondary-light)] pl-3 ml-4">
-          <img src="/profil-dev.jpeg" className="w-8 h-auto rounded-full mr-2" />
-          <span className="regular-text uppercase mr-2">{user}</span>
-          <svg className={`w-4 transition ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20">
-            <path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" />
-          </svg>
-        </div> */}
 
         {/* Button */}
         <button onClick={() => setOpen(!open)} className="flex items-center px-3 py-2 rounded-[8px] bg-[var(--bg-color)] not-active ml-5">
