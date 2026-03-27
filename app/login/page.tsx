@@ -42,70 +42,83 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!identifier || !password) {
+    let hasError = false;
+
+    if (!identifier) {
       setIdError('NISN / NIP tidak boleh kosong!');
+      hasError = true;
+    } else {
+      setIdError('');
+    }
+
+    if (!password) {
       setPwError('Password tidak boleh kosong!');
-      return;
+      hasError = true;
+    } else {
+      setPwError('');
     }
 
-    if (idError != '' || pwError != '') {
-      return;
+    if (hasError) return;
+
+    if (identifier === '987654321987654321' && password === 'admin123') {
+      toast.success('Login berhasil!', {
+        duration: 1500,
+        className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
+      });
+
+      router.push('/dashboard');
+    } else {
+      toast.error('Login gagal!', {
+        duration: 1500,
+        className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
+      });
     }
 
-    setLoading(true);
+    // if (idError != '' || pwError != '') {
+    //   return;
+    // }
 
-    try {
-      if (identifier === process.env.SA_IDENTIFIER_KEY && password == process.env.SA_PASSWORD_KEY) {
-        toast.success('Login berhasil!', {
-          duration: 1500,
-          className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
-        });
+    // setLoading(true);
 
-        router.push('/dashboard');
-      } else {
-        toast.error('Login gagal!', {
-          duration: 1500,
-          className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
-        });
-      }
+    // try {
 
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   credentials: 'include',
-      //   body: JSON.stringify({
-      //     identifier,
-      //     password,
-      //   }),
-      // });
+    //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     credentials: 'include',
+    //     body: JSON.stringify({
+    //       identifier,
+    //       password,
+    //     }),
+    //   });
 
-      // const data = await res.json();
+    //   const data = await res.json();
 
-      // if (res.status == 401) {
-      //   throw new Error(data.message || 'Login failed');
-      // }
+    //   if (res.status == 401) {
+    //     throw new Error(data.message || 'Login failed');
+    //   }
 
-      // if (res.status == 400) {
-      //   throw new Error(data.message || 'Login failed');
-      // }
+    //   if (res.status == 400) {
+    //     throw new Error(data.message || 'Login failed');
+    //   }
 
-      // if (res.status == 500) {
-      //   throw new Error(data.message || 'Login failed');
-      // }
+    //   if (res.status == 500) {
+    //     throw new Error(data.message || 'Login failed');
+    //   }
 
-      // toast.success('Login berhasil!', {
-      //   duration: 1500,
-      //   className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
-      // });
+    //   toast.success('Login berhasil!', {
+    //     duration: 1500,
+    //     className: 'bg-gray-400/50 backdrop-blur-lg text-white border border-white/30 shadow-lg',
+    //   });
 
-      // router.push('/dashboard');
-    } catch (err: any) {
-      toast.error(err.message);
-    } finally {
-      setLoading(false);
-    }
+    //   router.push('/dashboard');
+    // } catch (err: any) {
+    //   toast.error(err.message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

@@ -11,12 +11,12 @@ export async function middleware(req: NextRequest) {
   const isProtected = pathname.startsWith('/dashboard');
 
   // No token
-  if (!token) {
-    if (isProtected) {
-      return NextResponse.redirect(new URL('/login', req.url));
-    }
-    return NextResponse.next();
-  }
+  // if (!token) {
+  //   if (isProtected) {
+  //     return NextResponse.redirect(new URL('/login', req.url));
+  //   }
+  //   return NextResponse.next();
+  // }
 
   // Validate token with backend
   // const res = await fetch(`${API_URL}/auth/validate`, {
@@ -26,19 +26,19 @@ export async function middleware(req: NextRequest) {
   // });
 
   // const isValid = res.ok;
-  const isValid = true;
+  // const isValid = true;
 
-  // Logged in → block login page
-  if (isLoginPage && isValid) {
-    return NextResponse.redirect(new URL('/dashboard', req.url));
-  }
+  // // Logged in → block login page
+  // if (isLoginPage && isValid) {
+  //   return NextResponse.redirect(new URL('/dashboard', req.url));
+  // }
 
-  // Invalid token → kick to login
-  if (!isValid && isProtected) {
-    return NextResponse.redirect(new URL('/login', req.url));
-  }
+  // // Invalid token → kick to login
+  // if (!isValid && isProtected) {
+  //   return NextResponse.redirect(new URL('/login', req.url));
+  // }
 
-  return NextResponse.next();
+  // return NextResponse.next();
 }
 
 export const config = {
