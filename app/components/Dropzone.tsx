@@ -50,7 +50,9 @@ export default function Dropzone({ label, onChange, disabled = false }: Props) {
 
   return (
     <div className="mb-4">
-      <label className="block mb-1 text-xs font-semibold text-primary-light ">{label}</label>
+      <div className="flex">
+        <label className="block mb-1 mr-2 text-xs font-semibold text-primary-light">{label}</label>
+      </div>
       <div className="space-y-4">
         {/* Drop area */}
         <div

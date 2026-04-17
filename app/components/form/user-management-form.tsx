@@ -8,42 +8,65 @@ import Input from '../Input';
 import Button from '../Button';
 import Select from '../Select';
 import Textarea from '../TextArea';
+import Dropzone from '../Dropzone';
 
-export default function UserManagementForm() {
+type UserFormProps = {
+  mode: 'create' | 'edit';
+  initialData?: {
+    role: number;
+    identifier: string;
+    email: string;
+    fullname: string;
+    nickname: string;
+    placeOfBirth: string;
+    dateOfBirth: string;
+    department: number;
+    phone: string;
+    address: string;
+  };
+  onSubmit: (data: any) => void;
+};
+
+export default function UserManagementForm({ mode, initialData, onSubmit }: UserFormProps) {
   const router = useRouter();
 
-  const [role, setRole] = useState(0);
+  const [role, setRole] = useState(initialData?.role || 0);
   const [roleError, setRoleError] = useState('');
 
-  const [identifier, setIdentifier] = useState('');
+  const [identifier, setIdentifier] = useState(initialData?.identifier || '');
   const [identifierError, setIdentifierError] = useState('');
 
-  const [fullname, setFullname] = useState('');
+  const [fullname, setFullname] = useState(initialData?.fullname || '');
   const [fullnameError, setFullnameError] = useState('');
 
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(initialData?.nickname || '');
   const [nicknameError, setNicknameError] = useState('');
 
-  const [department, setDepartment] = useState(0);
+  const [department, setDepartment] = useState(initialData?.department || 0);
   const [departmentError, setDepartmentError] = useState('');
 
-  const [placeOfBirth, setPlaceOfBirth] = useState('');
+  const [placeOfBirth, setPlaceOfBirth] = useState(initialData?.placeOfBirth || '');
   const [placeOfBirthError, setPlaceOfBirthError] = useState('');
 
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(initialData?.dateOfBirth || '');
   const [dateOfBirthError, setDateOfBirthError] = useState('');
 
-  const [email, setEmail] = useState('');
+  const [files, setFiles] = useState<File[]>([]);
+
+  const [email, setEmail] = useState(initialData?.email || '');
   const [emailError, setEmailError] = useState('');
 
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(initialData?.phone || '');
   const [phoneError, setPhoneError] = useState('');
 
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(initialData?.address || '');
   const [addressError, setAddressError] = useState('');
+
+  let isValid = false;
 
   const validateIdentifier = (val: string) => {
     if (!val) {
+      isValid = false;
       setIdentifierError(role == 3 ? 'NISN tidak boleh kosong!' : 'NIP tidak boleh kosong!');
     } else {
       setIdentifierError('');
@@ -54,16 +77,17 @@ export default function UserManagementForm() {
 
   const validateFullname = (val: string) => {
     if (!val) {
+      isValid = false;
       setFullnameError('Nama lengkap tidak boleh kosong!');
     } else {
       setFullnameError('');
     }
-
     setFullname(val);
   };
 
   const validateNickname = (val: string) => {
     if (!val) {
+      isValid = false;
       setNicknameError('Nama panggilan tidak boleh kosong!');
     } else {
       setNicknameError('');
@@ -74,6 +98,7 @@ export default function UserManagementForm() {
 
   const validatePlaceOfBirth = (val: string) => {
     if (!val) {
+      isValid = false;
       setPlaceOfBirthError('Tempat lahir tidak boleh kosong!');
     } else {
       setPlaceOfBirthError('');
@@ -84,6 +109,7 @@ export default function UserManagementForm() {
 
   const validateDateOfBirth = (val: string) => {
     if (!val) {
+      isValid = false;
       setDateOfBirthError('Tanggal lahir tidak boleh kosong!');
     } else {
       setDateOfBirthError('');
@@ -94,6 +120,7 @@ export default function UserManagementForm() {
 
   const validateEmail = (val: string) => {
     if (!val) {
+      isValid = false;
       setEmailError('Email tidak boleh kosong!');
     } else {
       setEmailError('');
@@ -104,6 +131,7 @@ export default function UserManagementForm() {
 
   const validatePhone = (val: string) => {
     if (!val) {
+      isValid = false;
       setPhoneError('Nomor Telepon tidak boleh kosong!');
     } else {
       setPhoneError('');
@@ -114,6 +142,7 @@ export default function UserManagementForm() {
 
   const validateAddress = (val: string) => {
     if (!val) {
+      isValid = false;
       setAddressError('Alamat tidak boleh kosong!');
     } else {
       setAddressError('');
@@ -122,8 +151,28 @@ export default function UserManagementForm() {
     setAddress(val);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(isValid);
+
+    const formData = {
+      role,
+      identifier,
+      email,
+      fullname,
+      nickname,
+      placeOfBirth,
+      dateOfBirth,
+      department,
+      phone,
+      address,
+    };
+
+    onSubmit(formData);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="card mt-8">
         <div className="card-header border-b-1">
           <h6 className="font-semibold text-primary-light">Informasi Akun</h6>
@@ -172,10 +221,22 @@ export default function UserManagementForm() {
           </div>
           <div className="flex gap-2">
             <div className="w-1/2">
-              <Input label="Tempat Lahir" value={placeOfBirth} onChange={validatePlaceOfBirth} placeholder="....." required message={nicknameError} />
+              <Input label="Tempat Lahir" value={placeOfBirth} onChange={validatePlaceOfBirth} placeholder="....." required message={placeOfBirthError} />
             </div>
             <div className="w-1/2">
-              <Input label="Tanggal Lahir" type="date" value={dateOfBirth} onChange={validateDateOfBirth} placeholder="....." required message={nicknameError} />
+              <Input label="Tanggal Lahir" type="date" value={dateOfBirth} onChange={validateDateOfBirth} placeholder="....." required message={dateOfBirthError} />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="w-1/2">
+              <Dropzone label="Pas Foto" onChange={setFiles} />
+            </div>
+            <div className="w-1/2">
+              <div className="pt-3">
+                <p className="text-xs leading-5">Ketentuan upload foto:</p>
+                <p className="text-xs leading-5">*Maksimal ukuran file 1-2 MB</p>
+                <p className="text-xs leading-5">*Dimensi foto 300x400 px</p>
+              </div>
             </div>
           </div>
         </div>
@@ -238,7 +299,7 @@ export default function UserManagementForm() {
         </Link>
 
         <Button primary={true} type="submit">
-          Simpan
+          {mode == 'create' ? 'Simpan' : 'Ubah'}
         </Button>
       </div>
     </form>
