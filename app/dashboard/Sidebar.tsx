@@ -109,6 +109,9 @@ export default function Sidebar() {
                 className={`w-full text-left text-base px-3 py-2 rounded-md flex items-center gap-2 cursor-pointer ${
                   isActive('/dashboard/system-configuration/maintenance') ? 'text-[#25a194] font-semibold' : 'text-[var(--text-secondary-light)]'
                 }`}
+                onClick={() => {
+                  setOpenMenu(null);
+                }}
               >
                 <i className="ri-circle-fill text-[0.4rem]"></i>
                 {!sidebarCollapsed && <span className="regular-text">Maintenance</span>}
@@ -122,6 +125,9 @@ export default function Sidebar() {
             className={`w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${
               isActive('/dashboard/user-management') || pathname.startsWith('/dashboard/user-management') ? 'active' : 'not-active'
             }`}
+            onClick={() => {
+              setOpenMenu(null);
+            }}
           >
             <i className="ri-user-line text-lg"></i>
             {!sidebarCollapsed && <span className="regular-text">User Management</span>}
