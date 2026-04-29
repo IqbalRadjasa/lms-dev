@@ -32,6 +32,15 @@ const columns: ColumnDef<Log>[] = [
   {
     accessorKey: 'name',
     header: 'Nama',
+
+    filterFn: (row, id, value) => {
+      const rowValue = row.getValue<string>(id) ?? '';
+      const search = value?.trim().toLowerCase();
+
+      if (!search) return true;
+
+      return rowValue.toLowerCase().includes(search);
+    },
   },
   {
     accessorKey: 'identifier',
@@ -80,53 +89,29 @@ const columns: ColumnDef<Log>[] = [
 ];
 
 export default function UserManagement() {
-  const router = useRouter();
-  const confirm = useConfirm();
+  const [columnFilters, setColumnFilters] = useState({
+    name: '',
+  });
 
-  const [open, setOpen] = useState(false);
+  const renderFilters = (
+    <div className="relative w-full max-w-sm">
+      {/* icon */}
+      <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-primary-light pointer-events-none" />
 
-  const [pesan, setPesan] = useState('');
-  const [pesanError, setPesanError] = useState('');
-
-  const validatePesan = (value: string) => {
-    if (value.length < 5) {
-      setPesanError('Pesan harus lebih dari 5 huruf!');
-    } else {
-      setPesanError('');
-    }
-
-    setPesan(value);
-  };
-
-  const [kode, setKode] = useState('');
-  const [kodeError, setKodeError] = useState('');
-
-  const validateKode = (value: string) => {
-    if (value.length < 5) {
-      setKodeError('Kode harus lebih dari 5 huruf!');
-    } else {
-      setKodeError('');
-    }
-
-    setKode(value);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (pesan.length < 5 || kode.length < 5) {
-      setPesanError('Pesan harus lebih dari 5 huruf!');
-      setKodeError('Kode harus lebih dari 5 huruf!');
-      return;
-    }
-
-    const confirmed = await confirm('Apakah kamu yakin?');
-
-    if (!confirmed) return;
-    console.log('mode on');
-    localStorage.setItem('maintenance', 'true');
-    window.location.reload();
-  };
+      {/* input */}
+      <input
+        value={columnFilters.name || ''}
+        onChange={(e) =>
+          setColumnFilters((prev) => ({
+            ...prev,
+            name: e.target.value,
+          }))
+        }
+        placeholder="Cari Nama"
+        className="w-full border border-[var(--input-form-light)] rounded-lg pl-10 pr-3 py-2 text-sm text-primary-light focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+  );
 
   const data: Log[] = [
     { id: 1, name: 'Eman', identifier: '123456789', role: 'Super Admin', created_at: '12-12-2025', updated_at: '12-12-2025' },
@@ -153,7 +138,18 @@ export default function UserManagement() {
 
       <div className="card mt-8">
         <div className="card-body">
-          <DataTable columns={columns} data={data} />
+          <DataTable
+            columns={columns}
+            data={data}
+            columnFilters={columnFilters}
+            onColumnFiltersChange={(filters) => {
+              setColumnFilters((prev) => ({
+                ...prev,
+                name: filters.name ?? prev.name ?? '',
+              }));
+            }}
+            renderFilters={renderFilters}
+          />
         </div>
       </div>
     </div>

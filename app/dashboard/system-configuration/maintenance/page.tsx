@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 
 import Modal from '../../../components/Modal';
@@ -29,6 +29,14 @@ const columns: ColumnDef<Log>[] = [
   {
     accessorKey: 'user',
     header: 'User',
+    filterFn: (row, id, value) => {
+      const rowValue = row.getValue<string>(id) ?? '';
+      const search = value?.trim().toLowerCase();
+
+      if (!search) return true;
+
+      return rowValue.toLowerCase().includes(search);
+    },
   },
   {
     accessorKey: 'role',
@@ -155,6 +163,30 @@ export default function Maintenance() {
     }
   };
 
+  const [columnFilters, setColumnFilters] = useState({
+    user: '',
+  });
+
+  const renderFilters = (
+    <div className="relative w-full max-w-sm">
+      {/* icon */}
+      <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-primary-light pointer-events-none" />
+
+      {/* input */}
+      <input
+        value={columnFilters.user || ''}
+        onChange={(e) =>
+          setColumnFilters((prev) => ({
+            ...prev,
+            user: e.target.value,
+          }))
+        }
+        placeholder="Cari User"
+        className="w-full border border-[var(--input-form-light)] rounded-lg pl-10 pr-3 py-2 text-sm text-primary-light focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+  );
+
   const data: Log[] = [
     { id: 1, user: 'Eman', role: 'Super Admin', created_at: '12-02-2026', status: 'ON' },
     { id: 2, user: 'Umar', role: 'Super Admin', created_at: '12-02-2026', status: 'OFF' },
@@ -185,19 +217,19 @@ export default function Maintenance() {
             >
               {!status ? <i className="ri-lock-unlock-line"></i> : <i className="ri-lock-line"></i>}
             </button>
-            {/* <button
-            className={`
-              ml-2 
-              font-semibold 
-              px-4 py-1
-              rounded-full
-              ${!status ? 'not-active' : 'active'}
-            `}
-          >
-            {!status ? 'Off' : 'On'}
-          </button> */}
           </div>
-          <DataTable columns={columns} data={data} />
+          <DataTable
+            columns={columns}
+            data={data}
+            columnFilters={columnFilters}
+            onColumnFiltersChange={(filters) => {
+              setColumnFilters((prev) => ({
+                ...prev,
+                user: filters.user ?? prev.user ?? '',
+              }));
+            }}
+            renderFilters={renderFilters}
+          />
         </div>
       </div>
 

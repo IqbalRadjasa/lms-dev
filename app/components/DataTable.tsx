@@ -1,18 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, getFilteredRowModel, getPaginationRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 
 import Select from './Select';
 
+type ColumnFiltersState = Record<string, any>;
+
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+
+  globalFilter?: string;
+  onGlobalFilterChange?: (value: string) => void;
+
+  columnFilters: ColumnFiltersState;
+  onColumnFiltersChange: (filters: ColumnFiltersState) => void;
+
+  renderFilters?: React.ReactNode;
 };
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, globalFilter, onGlobalFilterChange, columnFilters, onColumnFiltersChange, renderFilters }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState('');
+
+  const columnFiltersArray = useMemo(() => {
+    return Object.entries(columnFilters).map(([id, value]) => ({
+      id,
+      value,
+    }));
+  }, [columnFilters]);
 
   const table = useReactTable({
     data,
@@ -20,9 +36,25 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     state: {
       sorting,
       globalFilter,
+      columnFilters: columnFiltersArray,
     },
+
     onSortingChange: setSorting,
-    onGlobalFilterChange: setGlobalFilter,
+
+    onGlobalFilterChange: (value) => {
+      if (value !== globalFilter) {
+        onGlobalFilterChange?.(value);
+      }
+    },
+
+    onColumnFiltersChange: (updater) => {
+      const next = typeof updater === 'function' ? updater(table.getState().columnFilters) : updater;
+
+      const obj = Object.fromEntries(next.map((item: any) => [item.id, item.value]));
+
+      onColumnFiltersChange(obj);
+    },
+
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -30,35 +62,20 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   });
 
   const { pageIndex, pageSize } = table.getState().pagination;
-
   const total = table.getFilteredRowModel().rows.length;
 
   const start = total === 0 ? 0 : pageIndex * pageSize + 1;
   const end = Math.min((pageIndex + 1) * pageSize, total);
-
   const pageCount = table.getPageCount();
 
   return (
     <div className="w-full overflow-y-auto">
+      {/* FILTER AREA */}
       <div className="flex items-center justify-between py-3">
-        <div className="flex items-center">
-          <div className="relative w-full max-w-sm">
-            {/* icon */}
-            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-primary-light pointer-events-none" />
+        <div className="flex items-center gap-4">{renderFilters}</div>
 
-            {/* input */}
-            <input
-              value={globalFilter ?? ''}
-              onChange={(e) => setGlobalFilter(e.target.value)}
-              placeholder="Search..."
-              className="w-full border border-[var(--input-form-light)] rounded-lg pl-10 pr-3 py-2 text-sm text-primary-light focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 text-secondary-light text-sm">
-          <span>Rows per page: </span>
-
+        <div className="flex items-center gap-2 text-sm">
+          <span>Rows per page:</span>
           <Select<number>
             value={table.getState().pagination.pageSize}
             onChange={(size) => table.setPageSize(size)}
@@ -69,11 +86,12 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               { label: '50', value: 50 },
             ]}
             className="h-auto w-16"
-            forDatatable={true}
+            forDatatable
           />
         </div>
       </div>
 
+      {/* TABLE */}
       <table className="w-full text-sm bordered-table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -82,11 +100,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 const sort = header.column.getIsSorted();
 
                 return (
-                  <th key={header.id} onClick={header.column.getToggleSortingHandler()} className="px-4 py-3 text-left font-semibold cursor-pointer select-none">
+                  <th key={header.id} onClick={header.column.getToggleSortingHandler()} className="px-4 py-3 text-left font-semibold cursor-pointer">
                     {flexRender(header.column.columnDef.header, header.getContext())}
 
-                    {sort === 'asc' && <i className="ri-arrow-up-s-fill ml-1" />}
-                    {sort === 'desc' && <i className="ri-arrow-down-s-fill ml-1" />}
+                    {sort === 'asc' && ' ↑'}
+                    {sort === 'desc' && ' ↓'}
                   </th>
                 );
               })}
@@ -106,6 +124,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           ))}
         </tbody>
       </table>
+
       {/* Pagination */}
       <div className="flex items-center justify-between p-3 text-sm">
         {/* left side */}

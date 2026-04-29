@@ -118,9 +118,24 @@ export default function Sidebar() {
         )}
 
         <Link href="/dashboard/user-management">
-          <button className={`w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${isActive('/dashboard/user-management') || pathname.startsWith('/dashboard/user-management') ? 'active' : 'not-active'}`}>
+          <button
+            className={`w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${
+              isActive('/dashboard/user-management') || pathname.startsWith('/dashboard/user-management') ? 'active' : 'not-active'
+            }`}
+          >
             <i className="ri-user-line text-lg"></i>
             {!sidebarCollapsed && <span className="regular-text">User Management</span>}
+          </button>
+        </Link>
+
+        <Link href="/dashboard/monitoring-audit">
+          <button
+            className={`w-full mb-2 text-left text-base px-3 py-2 rounded-md flex items-center gap-2 text-[#113F67] cursor-pointer ${
+              isActive('/dashboard/monitoring-audit') || pathname.startsWith('/dashboard/monitoring-audit') ? 'active' : 'not-active'
+            }`}
+          >
+            <i className="ri-archive-drawer-line text-lg"></i>
+            {!sidebarCollapsed && <span className="regular-text">Monitoring Audit</span>}
           </button>
         </Link>
       </nav>
