@@ -94,23 +94,21 @@ export default function MonitoringAudit() {
           <Breadcrumb />
         </div>
         <div>
-          <Link href="/dashboard/user-management/tambah">
-            <Button primary={true}>+ Tambah User</Button>
-          </Link>
+          <Button primary onClick={() => setOpenExportModal(true)}>
+            <i className="ri-export-fill mr-2"></i>
+            Export Log
+          </Button>
         </div>
       </div>
 
       <div className="card mt-8">
         <div className="card-body">
-          <div className="flex justify-end mb-2">
+          {/* <div className="flex justify-end mb-2">
             <Button primary onClick={() => setOpenExportModal(true)}>
               <i className="ri-export-fill mr-2"></i>
               Export Log
             </Button>
-            {/* <button onClick={() => setOpenExportModal(true)} className="px-4 py-2 bg-[var(--primary-600)] text-white text-sm font-semibold rounded cursor-pointer">
-              Export Log
-            </button> */}
-          </div>
+          </div> */}
 
           <Modal open={openExportModal} onClose={() => setOpenExportModal(false)} title="Pengaturan Export">
             <div className="flex flex-col gap-10">
